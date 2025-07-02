@@ -6,7 +6,7 @@ const loadBase= function(callback) {
 
 loadBase(function() {
   if(document.getElementById("version")) { document.getElementById("version").innerHTML= version; }
-  instance.endpoint= endpoint; instance.login_endpoint= login_endpoint; instance.spinner= new Spinner({ color: "#FFFFFF", radius: 2, width: 2, length: 5, left: "10%" });
+  instance.endpoint= endpoint; instance.spinner= new Spinner({ color: "#FFFFFF", radius: 2, width: 2, length: 5, left: "10%" });
   if(typeof loadScript== "function") { loadScript(); }
 });
 
