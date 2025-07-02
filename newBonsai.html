@@ -4,26 +4,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="Digitively">
-  <meta name="description" content="FLOWERS 76JK">
-  <title>FLOWERS 76JK</title>
+  <meta name="description" content="BONSAIS 76JK">
+  <title>BONSAIS 76JK</title>
   <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.7.2/css/all.css">
-  <link rel="stylesheet" href="https://s3-ap-southeast-1.amazonaws.com/flowers.76JK.COM/styles/styles.css">
-  <link rel="icon" type="image/x-icon" href="https://s3-ap-southeast-1.amazonaws.com/flowers.76JK.COM/images/favicon.ico">
+  <link rel="stylesheet" href="https://s3-ap-southeast-1.amazonaws.com/console.76jk.com/styles/styles.css">
+  <link rel="icon" type="image/x-icon" href="https://s3-ap-southeast-1.amazonaws.com/console.76jk.com/images/favicon.ico">
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jwt-decode@2.2.0/build/jwt-decode.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/async/3.1.0/async.min.js"></script>
-  <script type="text/javascript" src="https://s3-ap-southeast-1.amazonaws.com/flowers.76JK.COM/scripts/config.js"></script>
-  <script type="text/javascript" src="https://s3-ap-southeast-1.amazonaws.com/flowers.76JK.COM/scripts/base.js"></script>
+  <script type="text/javascript" src="https://s3-ap-southeast-1.amazonaws.com/console.76jk.com/scripts/config.js"></script>
+  <script type="text/javascript" src="https://s3-ap-southeast-1.amazonaws.com/console.76jk.com/scripts/base.js"></script>
 </head>
 
 <body>
   <div class="header">
     <div class="menu pure-menu pure-menu-horizontal pure-menu-fixed">
       <ul class="pure-menu-list" style="float:right;">
-        <li class="pure-menu-item"><a class="pure-menu-link" href="/index.html"><span style="color:#B9561A;font-weight:bold;">FLOWERS</span> 76JK</a></li>
+        <li class="pure-menu-item"><a class="pure-menu-link" href="/index.html"><span style="color:#B9561A;font-weight:bold;">BONSAIS</span> 76JK</a></li>
       </ul>
 
     </div>
@@ -31,20 +31,20 @@
 
   <div class="wrapper">
     <div class="pure-g content">
-      <form class="pure-form pure-u-1" action="javascript:newflower();">
+      <form class="pure-form pure-u-1" action="javascript:newBonsai();">
         <div class="pure-g">
-          <h1 class="pure-u-1" style="margin:50px 0px 30px 0px;">New flower</h1>
+          <h1 class="pure-u-1" style="margin:50px 0px 30px 0px;">New bonsai</h1>
           <p class="pure-u-1" style="font-size:26px;font-style:italic;margin-bottom:5px;">Name:</p>
-          <input id="newflower-name" type="text" class="pure-input pure-u-1" style="margin-bottom:10px!important;box-sizing:border-box;">
+          <input id="newBonsai-name" type="text" class="pure-input pure-u-1" style="margin-bottom:10px!important;box-sizing:border-box;">
           
-          <img id="newflower-preview" style="max-width:100%;display:none;margin-top:10px;"/>
-          <input id="newflower-picture" type="file" accept="image/*" capture="environment" style="display:none;">
-          <label for="newflower-picture" class="pure-button pure-u-1" style="padding-top:10px!important;margin-bottom:20px!important;">Attach Photo</label>
+          <img id="newBonsai-preview" style="max-width:100%;display:none;margin-top:10px;"/>
+          <input id="newBonsai-picture" type="file" accept="image/*" capture="environment" style="display:none;">
+          <label for="newBonsai-picture" class="pure-button pure-u-1" style="padding-top:10px!important;margin-bottom:20px!important;">Attach Photo</label>
 
           <p class="pure-u-1" style="font-size:26px;font-style:italic;margin-bottom:5px;">Description:</p>
-          <textarea id="newflower-description" class="pure-input pure-u-1" rows="12" style="margin-bottom:10px!important;border:1px #CCCCCC solid;resize:vertical;"></textarea>
+          <textarea id="newBonsai-description" class="pure-input pure-u-1" rows="12" style="margin-bottom:10px!important;border:1px #CCCCCC solid;resize:vertical;"></textarea>
 
-          <button id="newflower-btn" type="submit" class="pure-button pure-u-1" style="margin-bottom:30px!important;">Submit</button>
+          <button id="newBonsai-btn" type="submit" class="pure-button pure-u-1" style="margin-bottom:30px!important;">Submit</button>
         </div>
       </form>
     </div>
@@ -63,14 +63,14 @@
 
   <script type="text/javascript">
     const loadScript= function() {
-      instance.flowers= getCookie("flowers");
-      if(!instance.flowers) { location.href= "/index.html"; return; }
-      instance.profile= jwt_decode(instance.flowers);
+      instance.jk= getCookie("jk");
+      if(!instance.jk) { location.href= "/index.html"; return; }
+      instance.profile= jwt_decode(instance.jk);
 
-      document.getElementById("newflower-picture").addEventListener("change", function(event) {
+      document.getElementById("newBonsai-picture").addEventListener("change", function(event) {
         const file= event.target.files[0];
         if(file) {
-          const preview= document.getElementById("newflower-preview");
+          const preview= document.getElementById("newBonsai-preview");
           preview.src= URL.createObjectURL(file);
           preview.style.display= "block";
         }
@@ -78,7 +78,7 @@
     }
 
     const extractBase64String= function(callback) {
-      const input= document.getElementById("newflower-picture");
+      const input= document.getElementById("newBonsai-picture");
       const file= input.files[0];
       if(!file) { callback(); return; }
       const reader= new FileReader();
@@ -90,18 +90,18 @@
       reader.readAsDataURL(file);
     }
 
-    const newflower= function(callback) {
+    const newBonsai= function(callback) {
       extractBase64String(function(err, res) {
         if(err) { alert(err); return; }
-        const action= "newflower";
+        const action= "newBonsai";
         const url= instance.endpoint + "/" + action.toLowerCase();
-        const variables= ["flowers", "name", "description", "picture"];
-        const required= ["flowers", "name"];
+        const variables= ["jk", "name", "description", "picture"];
+        const required= ["jk", "name"];
         const values= { "picture": res };
         const type= "application/x-www-form-urlencoded";
         post(type, url, action, variables, required, values, function(err, res) {
           if(err) { alert(err); return; }
-          location.href= "/flower.html?flowerId=" + res.flowerId;
+          location.href= "/bonsai.html?bonsaiId=" + res.bonsaiId;
         });
       });
     }
