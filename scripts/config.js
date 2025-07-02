@@ -1,2 +1,2 @@
-const version= "03.07.0011"; 
-const endpoint= "https://og44s6y7a4.execute-api.ap-southeast-1.amazonaws.com/live";
+const version= "03.07.0729"; 
+const endpoint= "https://api.76jk.com";
