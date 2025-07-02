@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Digitively">
+  <meta name="description" content="FLOWERS 76JK">
+  <title>FLOWERS 76JK</title>
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.7.2/css/all.css">
+  <link rel="stylesheet" href="https://s3-ap-southeast-1.amazonaws.com/flowers.76JK.COM/styles/styles.css">
+  <link rel="icon" type="image/x-icon" href="https://s3-ap-southeast-1.amazonaws.com/flowers.76JK.COM/images/favicon.ico">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jwt-decode@2.2.0/build/jwt-decode.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/async/3.1.0/async.min.js"></script>
+  <script type="text/javascript" src="https://s3-ap-southeast-1.amazonaws.com/flowers.76JK.COM/scripts/config.js"></script>
+  <script type="text/javascript" src="https://s3-ap-southeast-1.amazonaws.com/flowers.76JK.COM/scripts/base.js"></script>
+</head>
+
+<body>
+  <div class="header">
+    <div class="menu pure-menu pure-menu-horizontal pure-menu-fixed">
+      <ul class="pure-menu-list" style="float:right;">
+        <li class="pure-menu-item"><a class="pure-menu-link" href="/index.html"><span style="color:#B9561A;font-weight:bold;">FLOWERS</span> 76JK</a></li>
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <div id="flower" class="pure-g content">
+      <p class="pure-u-1" style="font-size:26px;font-style:italic;margin-bottom:5px;margin-top:50px;">
+        <i class="fas fa-spinner fa-spin"></i>
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="menu pure-menu pure-menu-horizontal">
+      <ul class="pure-menu-list" style="float:left;">
+        <li class="pure-menu-item"><a id="version" class="pure-menu-link"></a></li>
+      </ul>
+      <ul class="pure-menu-list" style="float:right;">
+        <li class="pure-menu-item"><a href="mailto:hello@digitively.com" class="pure-menu-link">hello@digitively.com</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    const loadScript= function() {
+      instance.flowers= getCookie("flowers");
+      if(!instance.flowers) { location.href= "/index.html"; return; }
+      instance.profile= jwt_decode(instance.flowers); 
+
+      const flowerId= getValueFromQueryString("flowerId");
+      if(!flowerId) { return; }
+      getflower(flowerId, function(err, res) {
+        if(err) { alert(err); return; } 
+        renderFlower(res, function(err, res) {
+          if(err) { alert(err); return; }
+          console.log("OK"); 
+        });
+      });
+      
+    } 
+
+    const getflower= function(flowerId, callback) {
+      const action= "getflower";
+      const url= instance.endpoint + "/" + action.toLowerCase();
+      const variables= ["flowers", "flowerId"];
+      const required= ["flowers", "flowerId"];
+      const values= {};
+      const type= "application/x-www-form-urlencoded";
+      post(type, url, action, variables, required, values, function(err, res) {
+        err ? callback(err) : callback(null, res);
+      });
+    }
+
+    const generatestatic= function(flowerId) {
+      const action= "generatestatic";
+      const url= instance.endpoint + "/" + action.toLowerCase();
+      const variables= ["flowers", "flowerId"];
+      const required= ["flowers", "flowerId"];
+      const values= {};
+      const type= "application/x-www-form-urlencoded";
+      post(type, url, action, variables, required, values, function(err, res) {
+        if(err) { alert(err); return; }
+        console.log(res); 
+      });
+    }
+
+    const renderFlower= function(flower, callback) {
+      document.getElementById("flower").innerHTML= "";
+
+      renderElement({
+        "tag": "h1",
+        "class": "pure-u-2-3",
+        "innerHTML": flower.name_,
+        "style": "margin:50px 0px 30px 0px;",
+        "parent": document.getElementById("flower")
+      });
+
+      renderElement({
+        "tag": "h1",
+        "id": "h1Actions",
+        "class": "pure-u-1-3",
+        "style": "text-align:right;margin:50px 0px 30px 0px;",
+        "parent": document.getElementById("flower")
+      });
+
+      renderElement({
+        "tag": "a",
+        "id": "aAdd",
+        "class": "link",
+        "style": "cursor:pointer;margin-right:10px;",
+        "onclick": "javascript:location.href='newentry.html?flowerId=" + flower.flowerId + "'",
+        "parent": document.getElementById("h1Actions")
+      });
+
+      renderElement({
+        "tag": "i", 
+        "class": "fas fa-plus-circle", 
+        "parent": document.getElementById("aAdd")
+      });
+      
+      renderElement({
+        "tag": "a",
+        "id": "aGenerate",
+        "class": "link",
+        "style": "cursor:pointer;",
+        "onclick": "javascript:generatestatic('" + flower.flowerId + "');",
+        "parent": document.getElementById("h1Actions")
+      });
+
+      renderElement({
+        "tag": "i", 
+        "class": "fa-solid fa-code", 
+        "parent": document.getElementById("aGenerate")
+      });
+      
+      for(var i= flower.entries.length - 1; i>= 0; i--) {
+        const entry= flower.entries[i];
+
+        renderElement({
+          "tag": "p",
+          "class": "pure-u-1",
+          "innerHTML": moment(entry.lastUpdated).format("MMM D, YYYY"),
+          "style": "font-size:26px;margin-bottom:5px;",
+          "parent": document.getElementById("flower")
+        });
+
+        renderElement({
+          "tag": "p",
+          "class": "pure-u-1",
+          "innerHTML": entry.description,
+          "style": "font-size:26px;margin-bottom:5px;",
+          "parent": document.getElementById("flower")
+        });
+
+        if(entry.isPicture) {
+          renderElement({
+            "tag": "img",
+            "src": "https://s3-ap-southeast-1.amazonaws.com/flowers.76JK.COM/images/" + flower.flowerId + "/" + entry.entryId + ".jpeg",
+            "style": "width:100%;margin-bottom:40px;",
+            "parent": document.getElementById("flower")
+          });
+        }
+        if(i=== 0) { callback(); }
+      } 
+
+    }
+
+  </script>
+
+</body>
+</html>

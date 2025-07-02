@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Digitively">
+  <meta name="description" content="FLOWERS 76JK">
+  <title>FLOWERS 76JK</title>
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.7.2/css/all.css">
+  <link rel="stylesheet" href="https://s3-ap-southeast-1.amazonaws.com/flowers.76JK.COM/styles/styles.css">
+  <link rel="icon" type="image/x-icon" href="https://s3-ap-southeast-1.amazonaws.com/flowers.76JK.COM/images/favicon.ico">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jwt-decode@2.2.0/build/jwt-decode.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/async/3.1.0/async.min.js"></script>
+  <script type="text/javascript" src="https://s3-ap-southeast-1.amazonaws.com/flowers.76JK.COM/scripts/config.js"></script>
+  <script type="text/javascript" src="https://s3-ap-southeast-1.amazonaws.com/flowers.76JK.COM/scripts/base.js"></script>
+</head>
+
+<body>
+  <div class="header">
+    <div class="menu pure-menu pure-menu-horizontal pure-menu-fixed">
+      <ul class="pure-menu-list" style="float:right;">
+        <li class="pure-menu-item"><a class="pure-menu-link" href="/index.html"><span style="color:#B9561A;font-weight:bold;">FLOWERS</span> 76JK</a></li>
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <div class="pure-g content">
+      <h1 class="pure-u-2-3" style="margin:30px 0px 10px 0px;">Flowers</h1>
+      <h1 class="pure-u-1-3" style="text-align:right;margin:30px 0px 10px 0px;">
+        <a class="link" style="cursor:pointer;" onclick="javascript:location.href='newflower.html';">
+          <i class="fas fa-plus-circle"></i>
+        </a>
+      </h1>
+      <div id="flowers" class="pure-u-1 pure-g" style="width:100%;">
+        <p class="pure-u-1" style="font-size:26px;font-style:italic;margin-bottom:5px;margin-top:50px;">
+          <i class="fas fa-spinner fa-spin"></i>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="menu pure-menu pure-menu-horizontal">
+      <ul class="pure-menu-list" style="float:left;">
+        <li class="pure-menu-item"><a id="version" class="pure-menu-link"></a></li>
+      </ul>
+      <ul class="pure-menu-list" style="float:right;">
+        <li class="pure-menu-item"><a href="mailto:hello@digitively.com" class="pure-menu-link">hello@digitively.com</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    const loadScript= function() {
+      instance.flowers= getCookie("flowers");
+      if(!instance.flowers) { location.href= "/index.html"; return; }
+      instance.profile= jwt_decode(instance.flowers);
+      
+      getflowers(function(err, res) {
+        if(err) { alert(err); return; }
+        renderFlowers(res, function(err, res) {
+          if(err) { alert(err); return; }
+
+        });
+      });
+    } 
+
+    const getflowers= function(callback) {
+      const action= "getflowers";
+      const url= instance.endpoint + "/" + action.toLowerCase();
+      const variables= ["flowers"];
+      const required= ["flowers"];
+      const values= {};
+      const type= "application/x-www-form-urlencoded";
+      post(type, url, action, variables, required, values, function(err, res) {
+        err ? callback(err) : callback(null, res);
+      });
+    }
+
+    const renderFlowers= function(flowers, callback) {
+      console.log(flowers);
+      document.getElementById("flowers").innerHTML= "";
+      
+      for(var i= 0; i< flowers.length; i++) {
+        const flower= flowers[i];
+
+        renderElement({
+          "tag": "div",
+          "id": "div-" + flower.flowerId,
+          "class": "pure-u-1 pure-g", 
+          "style": "border:1px dotted #444444;padding:10px;margin-bottom:20px;cursor:pointer;width:100%;box-sizing:border-box;",
+          "onclick": "javascript:location.href='flower.html?flowerId=" + flower.flowerId + "'",
+          "parent": document.getElementById("flowers")
+        });
+
+        renderElement({
+          "tag": "p",
+          "class": "pure-u-1",
+          "innerHTML": flower.name_,
+          "style": "font-size:26px;margin-bottom:5px;",
+          "parent": document.getElementById("div-" + flower.flowerId)
+        });
+
+        /*
+        
+        renderElement({
+          "tag": "p",
+          "class": "pure-u-1",
+          "innerHTML": moment(flower.firstCreated).format("MMM D, YYYY"),
+          "style": "font-size:26px;margin-bottom:5px;",
+          "parent": document.getElementById("flowers")
+        }); 
+
+        renderElement({
+          "tag": "p",
+          "class": "pure-u-1",
+          "innerHTML": moment(flower.lastUpdated).format("MMM D, YYYY"),
+          "style": "font-size:26px;margin-bottom:20px;",
+          "parent": document.getElementById("flowers")
+        }); 
+        */
+
+
+        if(i== flowers.length- 1) { callback(); }
+      }
+    }
+  </script>
+
+</body>
+</html>

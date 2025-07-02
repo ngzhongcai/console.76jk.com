@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Digitively">
+  <meta name="description" content="FLOWERS 76JK">
+  <title>FLOWERS 76JK</title>
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.7.2/css/all.css">
+  <link rel="stylesheet" href="https://s3-ap-southeast-1.amazonaws.com/flowers.76JK.COM/styles/styles.css">
+  <link rel="icon" type="image/x-icon" href="https://s3-ap-southeast-1.amazonaws.com/flowers.76JK.COM/images/favicon.ico">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jwt-decode@2.2.0/build/jwt-decode.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/async/3.1.0/async.min.js"></script>
+  <script type="text/javascript" src="https://s3-ap-southeast-1.amazonaws.com/flowers.76JK.COM/scripts/config.js"></script>
+  <script type="text/javascript" src="https://s3-ap-southeast-1.amazonaws.com/flowers.76JK.COM/scripts/base.js"></script>
+</head>
+
+<body>
+  <div class="header">
+    <div class="menu pure-menu pure-menu-horizontal pure-menu-fixed">
+      <ul class="pure-menu-list" style="float:right;">
+        <li class="pure-menu-item"><a class="pure-menu-link" href="/index.html"><span style="color:#B9561A;font-weight:bold;">FLOWERS</span> 76JK</a></li>
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <div class="pure-g content narrow-content">
+      <div class="narrow-header pure-u-1">
+        <h1>Login</h1>
+        <p id="error" style="color:#FF0000;">&nbsp;</p>
+      </div>
+      <form class="pure-form pure-u-1" action="javascript:login();">
+        <div class="pure-g">
+          <p class="pure-u-1">Email Address</p>
+          <input id="login-email" type="text" class="pure-input pure-u-1" style="margin-bottom:20px!important;">
+          <p class="pure-u-1">Password</p>
+          <input id="login-password" type="password" class="pure-input pure-u-1" style="margin-bottom:20px!important;">
+          <button id="login-btn" type="submit" class="pure-button pure-u-1">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="menu pure-menu pure-menu-horizontal">
+      <ul class="pure-menu-list" style="float:left;">
+        <li class="pure-menu-item"><a id="version" class="pure-menu-link"></a></li>
+      </ul>
+      <ul class="pure-menu-list" style="float:right;">
+        <li class="pure-menu-item"><a href="mailto:hello@digitively.com" class="pure-menu-link">hello@digitively.com</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    const loadScript= function() {
+      instance.flowers= getCookie("flowers"); 
+      if(instance.flowers) { location.href= "/flowers.html"; return; }
+    }
+
+    const login= function(callback) {
+      const action= "login";
+      const url= instance.login_endpoint + "/" + action.toLowerCase();
+      const variables= ["email", "password"];
+      const required= ["email", "password"];
+      const values= {};
+      const type= "application/x-www-form-urlencoded";
+      post(type, url, action, variables, required, values, function(err, res) {
+        if(err) { alert(err); return; }
+        if(res== false) { document.getElementById("error").innerHTML= "Wrong credentials"; return; } 
+        setCookie("flowers", res, 604800000); instance.flowers= getCookie("flowers");
+        instance.profile= jwt_decode(instance.flowers);
+        location.href= "/flowers.html"; 
+      });
+    }
+  </script>
+
+</body>
+</html>
