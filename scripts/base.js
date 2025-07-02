@@ -147,12 +147,12 @@ const stopSpin= function(id) {
 /* COOKIES */
 const setCookie= function(cname, cvalue, milliseconds) {
 	const d= new Date(Date.now() + (milliseconds ? milliseconds : 86400000)); const expires= "expires=" + d.toUTCString(); const path= "path=/";
-	document.cookie= cname + "=" + cvalue + "; " + expires + ";" + path + ";domain=flowers.digitively.com;";
+	document.cookie= cname + "=" + cvalue + "; " + expires + ";" + path + ";domain=76jk.com;";
 }
 
 const clearCookie= function(cname) {
   const expires= "expires=Thu, 01 Jan 1970 00:00:00 UTC"; const path= "path=/";
-	document.cookie= cname + "=;" + path + ";" + expires + ";domain=flowers.digitively.com;";
+	document.cookie= cname + "=;" + path + ";" + expires + ";domain=76jk.com;";
 }
 
 const getCookie= function(cname) {
@@ -298,7 +298,7 @@ const stopSpinIcon= function(id) {
 
 const logout= function() {
   clearCookie("eb");
-  location.href= "https://flowers.digitively.com";
+  location.href= "https://76jk.com";
 }
 
 const showMenu= function() {
