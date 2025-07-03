@@ -32,16 +32,11 @@
   <div class="wrapper">
     <div class="pure-g content narrow-content">
       <div class="narrow-header pure-u-1">
-        <h1>Forgot password</h1>
-        <p id="error" style="color:#FF0000;">&nbsp;</p>
-      </div>
-      <form class="pure-form pure-u-1" action="javascript:forgot();">
-        <div class="pure-g">
-          <p class="pure-u-1">Email Address</p>
-          <input id="forgot-email" type="text" class="pure-input pure-u-1" style="margin-bottom:20px!important;">
-          <button id="forgot-btn" type="submit" class="pure-button pure-u-1">Submit</button>
-        </div>
-      </form>
+        <h2>Hang tight — we’re sending you a password reset email.</h2>
+          <p>If the address you entered is linked to an account, you’ll receive instructions shortly.
+            Please check your inbox (and spam folder just in case).
+            This is the first step to getting you back in — just like pruning a bonsai for a fresh start.</p> 
+      </div> 
     </div>
   </div>
 
@@ -58,22 +53,10 @@
 
   <script type="text/javascript">
     const loadScript= function() {
-      instance.jk= getCookie("jk"); 
-      if(instance.jk) { location.href= "/bonsais.html"; return; }
-    }
-
-    const forgot= function(callback) {
-      const action= "forgot";
-      const url= instance.endpoint + "/" + action.toLowerCase();
-      const variables= ["email"];
-      const required= ["email"];
-      const values= {};
-      const type= "application/x-www-form-urlencoded";
-      post(type, url, action, variables, required, values, function(err, res) {
-        if(err) { alert(err); return; }
-        location.href= "/forgetting.html"; 
-      });
-    }
+      setTimeout(function() {
+        window.location.href = "/index.html";
+      }, 5000);
+    } 
   </script>
 
 </body>
