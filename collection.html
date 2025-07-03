@@ -23,6 +23,14 @@
   <div class="header">
     <div class="menu pure-menu pure-menu-horizontal pure-menu-fixed">
       <ul class="pure-menu-list" style="float:right;">
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" onclick="javascript:logout();">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </a> 
+        </li>
+      </ul>
+
+      <ul class="pure-menu-list" style="float:left;">
         <li class="pure-menu-item"><a class="pure-menu-link" href="/index.html"><span style="color:#B9561A;font-weight:bold;">BONSAI</span> 76JK</a></li>
       </ul>
 
@@ -59,7 +67,6 @@
       getBonsais(function(err, res) {
         if(err) { alert(err); return; }
         console.log(res);
-        
         renderBonsais(res, function(err, res) {
           if(err) { alert(err); return; }
 
@@ -95,6 +102,14 @@
         return; 
       }
       
+      renderElement({
+        "tag": "h1",
+        "class": "pure-u-1",
+        "innerHTML": "Collection",
+        "style": "font-size:26px;margin-top:50px;margin-bottom:20px;",
+        "parent": document.getElementById("bonsais")
+      });
+
       for(var i= 0; i< bonsais.length; i++) {
         const bonsai= bonsais[i];
 
@@ -110,11 +125,10 @@
         renderElement({
           "tag": "p",
           "class": "pure-u-1",
-          "innerHTML": bonsai.name_,
+          "innerHTML": bonsai.name_== " " ? bonsai.bonsaiId : bonsai.name_,
           "style": "font-size:26px;margin-bottom:5px;",
           "parent": document.getElementById("div-" + bonsai.bonsaiId)
-        }); 
-
+        });
 
         if(i== bonsais.length- 1) { callback(); }
       }

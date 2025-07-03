@@ -22,7 +22,7 @@
 <body>
   <div class="header">
     <div class="menu pure-menu pure-menu-horizontal pure-menu-fixed">
-      <ul class="pure-menu-list" style="float:right;">
+      <ul class="pure-menu-list" style="float:left;">
         <li class="pure-menu-item"><a class="pure-menu-link" href="/index.html"><span style="color:#B9561A;font-weight:bold;">BONSAI</span> 76JK</a></li>
       </ul>
 
@@ -53,13 +53,13 @@
   <script type="text/javascript">
     const loadScript= function() {
       instance.jk= getCookie("jk"); 
-      if(instance.jk) { location.href= "/bonsais.html"; return; }
+      if(instance.jk) { location.href= "/collection.html"; return; }
       
       const jk= getValueFromQueryString("jk");
       if(!jk) { return; }
       setCookie("jk", jk, 31536000000); instance.jk= getCookie("jk");
       instance.profile= jwt_decode(instance.jk);
-      location.href= "/bonsais.html";  
+      location.href= "/collection.html";  
     }
   </script>
 

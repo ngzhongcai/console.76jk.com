@@ -297,11 +297,11 @@ const stopSpinIcon= function(id) {
 }
 
 const logout= function() {
-  clearCookie("eb");
+  clearCookie("jk");
   location.href= "https://76jk.com";
 }
 
 const showMenu= function() {
   const dropdown= document.getElementsByClassName("pure-menu-children")[0];
-  dropdown.style.display= "block";
+  dropdown.style.display= dropdown.style.display== "block" ? "none" : "block";
 } 
