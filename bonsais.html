@@ -58,6 +58,8 @@
       
       getBonsais(function(err, res) {
         if(err) { alert(err); return; }
+        console.log(res);
+        
         renderBonsais(res, function(err, res) {
           if(err) { alert(err); return; }
 
