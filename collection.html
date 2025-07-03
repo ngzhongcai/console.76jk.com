@@ -126,7 +126,9 @@
           "tag": "p",
           "class": "pure-u-1",
           "innerHTML": bonsai.name_== " " ? bonsai.bonsaiId : bonsai.name_,
-          "style": "font-size:26px;margin-bottom:5px;",
+          "style": bonsai.name_== " " ? 
+            "font-size:26px;margin-bottom:5px;font-style:italic;" :
+            "font-size:26px;margin-bottom:5px;",
           "parent": document.getElementById("div-" + bonsai.bonsaiId)
         });
 
