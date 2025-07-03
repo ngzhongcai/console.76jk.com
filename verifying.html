@@ -32,9 +32,10 @@
   <div class="wrapper">
     <div class="pure-g content narrow-content">
       <div class="narrow-header pure-u-1">
-        <h2>Your email is now verified.</h2>
-        <p>Like a bonsai, great journeys begin with one small step.<br>
-            Redirecting you now…</p> 
+        <h2>Verifying your email…</h2>
+          <p>Like tending a bonsai, every meaningful journey begins with care and intention. 
+          We’re processing your request — a confirmation email will arrive in your inbox shortly. 
+          Feel free to close this page once you’re done.</p> 
       </div> 
     </div>
   </div>
@@ -51,16 +52,8 @@
   </div>
 
   <script type="text/javascript">
-    const loadScript= function() {
-      instance.jk= getCookie("jk"); 
-      if(instance.jk) { location.href= "/bonsais.html"; return; }
-      
-      const jk= getValueFromQueryString("jk");
-      if(!jk) { return; }
-      setCookie("jk", jk, 31536000000); instance.jk= getCookie("jk");
-      instance.profile= jwt_decode(instance.jk);
-      location.href= "/bonsais.html";  
-    }
+    const loadScript= function() { 
+    } 
   </script>
 
 </body>
