@@ -51,7 +51,10 @@
   <script type="text/javascript">
     const loadScript= function() {
       instance.jk= getCookie("jk");
-      if(!instance.jk) { location.href= "/index.html"; return; }
+      if(!instance.jk) { 
+        location.href= "/statics/" + getValueFromQueryString("bonsaiId") + ".html";
+        return; 
+      }
       instance.profile= jwt_decode(instance.jk); 
 
       const bonsaiId= getValueFromQueryString("bonsaiId");
