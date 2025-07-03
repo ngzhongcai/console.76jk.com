@@ -64,7 +64,7 @@
       if(!instance.jk) { location.href= "/index.html"; return; }
       instance.profile= jwt_decode(instance.jk);
       
-      getBonsais(function(err, res) {
+      getCollection(function(err, res) {
         if(err) { alert(err); return; }
         console.log(res);
         renderBonsais(res, function(err, res) {
@@ -74,8 +74,8 @@
       });
     } 
 
-    const getBonsais= function(callback) {
-      const action= "getBonsais";
+    const getCollection= function(callback) {
+      const action= "getCollection";
       const url= instance.endpoint + "/" + action.toLowerCase();
       const variables= ["jk"];
       const required= ["jk"];
