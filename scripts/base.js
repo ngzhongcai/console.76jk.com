@@ -62,8 +62,8 @@ const getValueFromRadio= function(name) {
 
 const getValueFromQueryString= function(name) {
   const querystring= window.location.href.slice(window.location.href.indexOf("?") + 1).split("&");
-  for(const i= 0; i< querystring.length; i++) {
-    const params= querystring[i].split("=");
+  for(var i= 0; i< querystring.length; i++) {
+    var params= querystring[i].split("=");
     if(params[0]== name) { return params[1]; }
     if(i== querystring.length- 1) { return undefined; }
   }

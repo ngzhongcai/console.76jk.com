@@ -32,17 +32,14 @@
   <div class="wrapper">
     <div class="pure-g content narrow-content">
       <div class="narrow-header pure-u-1">
-        <h1>Login</h1>
+        <h1>Forgot password</h1>
         <p id="error" style="color:#FF0000;">&nbsp;</p>
       </div>
-      <form class="pure-form pure-u-1" action="javascript:login();">
+      <form class="pure-form pure-u-1" action="javascript:forgot();">
         <div class="pure-g">
           <p class="pure-u-1">Email Address</p>
-          <input id="login-email" type="text" class="pure-input pure-u-1" style="margin-bottom:20px!important;">
-          <p class="pure-u-1">Password</p>
-          <input id="login-password" type="password" class="pure-input pure-u-1" style="margin-bottom:20px!important;">
-          <button id="login-btn" type="submit" class="pure-button pure-u-1">Login</button>
-          <div class="pure-u-1" style="text-align:right;"><a class="link" href="/forgot.html">Forgot password?</a></div>
+          <input id="forgot-email" type="text" class="pure-input pure-u-1" style="margin-bottom:20px!important;">
+          <button id="forgot-btn" type="submit" class="pure-button pure-u-1">Submit</button>
         </div>
       </form>
     </div>
@@ -65,19 +62,16 @@
       if(instance.jk) { location.href= "/bonsais.html"; return; }
     }
 
-    const login= function(callback) {
-      const action= "login";
+    const forgot= function(callback) {
+      const action= "forgot";
       const url= instance.endpoint + "/" + action.toLowerCase();
-      const variables= ["email", "password"];
-      const required= ["email", "password"];
+      const variables= ["email"];
+      const required= ["email"];
       const values= {};
       const type= "application/x-www-form-urlencoded";
       post(type, url, action, variables, required, values, function(err, res) {
         if(err) { alert(err); return; }
-        if(res== false) { document.getElementById("error").innerHTML= "Wrong credentials"; return; } 
-        setCookie("jk", res, 31536000000); instance.jk= getCookie("jk");
-        instance.profile= jwt_decode(instance.jk);
-        location.href= "/bonsais.html"; 
+        location.href= "/index.html"; 
       });
     }
   </script>
