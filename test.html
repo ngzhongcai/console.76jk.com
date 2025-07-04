@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scan Plant Tag</title>
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      font-family: sans-serif;
+      color: white;
+      text-align: center;
+    }
+
+    #reader {
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+
+    .overlay-text {
+      position: absolute;
+      top: 20px;
+      width: 100%;
+      font-size: 1.5em;
+      text-shadow: 0 0 10px black;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay-text">Scan Plant Tag</div>
+  <div id="reader"></div>
+
+  <script>
+    function onScanSuccess(decodedText, decodedResult) {
+      console.log(`Scanned: ${decodedText}`);
+      alert(`Scanned URL: ${decodedText}`);
+      html5QrCode.stop(); // stop scanning after successful read
+    }
+
+    function onScanFailure(error) {
+      // Silent failure handling
+    }
+
+    const html5QrCode = new Html5Qrcode("reader");
+
+    html5QrCode.start(
+      { facingMode: "environment" },
+      {
+        fps: 10,
+        qrbox: function(viewfinderWidth, viewfinderHeight) {
+          const minEdge = Math.min(viewfinderWidth, viewfinderHeight);
+          const boxSize = minEdge * 0.8;
+          return { width: boxSize, height: boxSize };
+        }
+      },
+      onScanSuccess,
+      onScanFailure
+    );
+  </script>
+</body>
+</html>
