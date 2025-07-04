@@ -17,7 +17,7 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/async/3.1.0/async.min.js"></script>
   <script type="text/javascript" src="https://76jk.com/scripts/config.js"></script>
   <script type="text/javascript" src="https://76jk.com/scripts/base.js"></script>
-  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 </head>
 
 <body> 
@@ -44,14 +44,13 @@
 
   <script type="text/javascript">
     const loadScript= function() {
+      const html5QrCode= new Html5Qrcode("reader");
+      html5QrCode.start({ facingMode: "environment" }, { fps: 50 },
+        function onScanSuccess(decodedText, decodedResult) {
+          location.href= decodedText;
+        }
+      );
     }
-
-    const html5QrCode= new Html5Qrcode("reader");
-    html5QrCode.start({ facingMode: "environment" }, { fps: 50 },
-      function onScanSuccess(decodedText, decodedResult) {
-        location.href= decodedText;
-      }
-    );
   </script>
 
 </body>
