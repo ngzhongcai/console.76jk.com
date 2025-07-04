@@ -93,13 +93,13 @@
         if(err) { alert(err); return; }
         const action= "newEntry";
         const url= instance.endpoint + "/" + action.toLowerCase();
-        const variables= ["jk", "bonsaiId", "description", "picture"];
-        const required= ["jk", "bonsaiId", "description"];
+        const variables= ["jk", "tagId", "description", "picture"];
+        const required= ["jk", "tagId", "description"];
         const values= { "picture": res };
         const type= "application/x-www-form-urlencoded";
         post(type, url, action, variables, required, values, function(err, res) {
           if(err) { alert(err); return; }
-          location.href= "/bonsai.html?bonsaiId=" + res.bonsaiId;
+          location.href= "/tag.html?tagId=" + res.tagId;
         });
       });
     }

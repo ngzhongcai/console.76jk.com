@@ -30,7 +30,7 @@
   </div>
 
   <div class="wrapper">
-    <div id="bonsai" class="pure-g content">
+    <div id="tag" class="pure-g content">
       <p class="pure-u-1" style="font-size:26px;font-style:italic;margin-bottom:5px;margin-top:50px;">
         <i class="fas fa-spinner fa-spin"></i>
       </p>
@@ -50,55 +50,55 @@
 
   <script type="text/javascript">
     const loadScript= function() { 
-      const bonsaiId= getValueFromQueryString("bonsaiId");
-      if(!bonsaiId) { return; }
+      const tagId= getValueFromQueryString("tagId");
+      if(!tagId) { return; }
       instance.jk= getCookie("jk");
-      if(!instance.jk) { location.href= "/statics/" + bonsaiId + ".html"; return; }
+      if(!instance.jk) { location.href= "/statics/" + tagId + ".html"; return; }
       instance.profile= jwt_decode(instance.jk); 
       
-      getBonsai(bonsaiId, function(err, res) {
+      getTag(tagId, function(err, res) {
         if(err) { alert(err); return; } 
-        renderBonsai(res, function(err, res) {
+        renderTag(res, function(err, res) {
           if(err) { alert(err); return; }
           console.log("OK"); 
         });
       });      
     } 
 
-    const getBonsai= function(bonsaiId, callback) {
-      const action= "getBonsai";
+    const getTag= function(tagId, callback) {
+      const action= "getTag";
       const url= instance.endpoint + "/" + action.toLowerCase();
-      const variables= ["jk", "bonsaiId"];
-      const required= ["jk", "bonsaiId"];
-      const values= { "bonsaiId": bonsaiId };
+      const variables= ["jk", "tagId"];
+      const required= ["jk", "tagId"];
+      const values= { "tagId": tagId };
       const type= "application/x-www-form-urlencoded";
       post(type, url, action, variables, required, values, function(err, res) {
         err ? callback(err) : callback(null, res);
       });
     }
 
-    const generatestatic= function(bonsaiId) {
+    const generatestatic= function(tagId) {
       const action= "generatestatic";
       const url= instance.endpoint + "/" + action.toLowerCase();
-      const variables= ["jk", "bonsaiId"];
-      const required= ["jk", "bonsaiId"];
+      const variables= ["jk", "tagId"];
+      const required= ["jk", "tagId"];
       const values= {};
       const type= "application/x-www-form-urlencoded";
       post(type, url, action, variables, required, values, function(err, res) {
         if(err) { alert(err); return; }
-        location.href= "/statics/" + bonsaiId + ".html";
+        location.href= "/statics/" + tagId + ".html";
       });
     }
 
-    const renderBonsai= function(bonsai, callback) {
-      document.getElementById("bonsai").innerHTML= "";
+    const renderTag= function(tag, callback) {
+      document.getElementById("tag").innerHTML= "";
 
       renderElement({
         "tag": "h1",
         "class": "pure-u-2-3",
-        "innerHTML": bonsai.name_,
+        "innerHTML": tag.name_,
         "style": "margin:50px 0px 30px 0px;",
-        "parent": document.getElementById("bonsai")
+        "parent": document.getElementById("tag")
       });
 
       renderElement({
@@ -106,7 +106,7 @@
         "id": "h1Actions",
         "class": "pure-u-1-3",
         "style": "text-align:right;margin:50px 0px 30px 0px;",
-        "parent": document.getElementById("bonsai")
+        "parent": document.getElementById("tag")
       });
 
       renderElement({
@@ -114,7 +114,7 @@
         "id": "aAdd",
         "class": "link",
         "style": "cursor:pointer;margin-right:10px;",
-        "onclick": "javascript:location.href='newEntry.html?bonsaiId=" + bonsai.bonsaiId + "'",
+        "onclick": "javascript:location.href='newEntry.html?tagId=" + tag.tagId + "'",
         "parent": document.getElementById("h1Actions")
       });
 
@@ -129,7 +129,7 @@
         "id": "aGenerate",
         "class": "link",
         "style": "cursor:pointer;",
-        "onclick": "javascript:generatestatic('" + bonsai.bonsaiId + "');",
+        "onclick": "javascript:generatestatic('" + tag.tagId + "');",
         "parent": document.getElementById("h1Actions")
       });
 
@@ -139,15 +139,15 @@
         "parent": document.getElementById("aGenerate")
       });
       
-      for(var i= bonsai.entries.length - 1; i>= 0; i--) {
-        const entry= bonsai.entries[i];
+      for(var i= tag.entries.length - 1; i>= 0; i--) {
+        const entry= tag.entries[i];
 
         renderElement({
           "tag": "p",
           "class": "pure-u-1",
           "innerHTML": moment(entry.lastUpdated).format("MMM D, YYYY"),
           "style": "font-size:26px;margin-bottom:5px;",
-          "parent": document.getElementById("bonsai")
+          "parent": document.getElementById("tag")
         });
 
         renderElement({
@@ -155,15 +155,15 @@
           "class": "pure-u-1",
           "innerHTML": entry.description,
           "style": "font-size:26px;margin-bottom:5px;",
-          "parent": document.getElementById("bonsai")
+          "parent": document.getElementById("tag")
         });
 
         if(entry.isPicture) {
           renderElement({
             "tag": "img",
-            "src": "https://76jk.com/images/" + bonsai.bonsaiId + "/" + entry.entryId + ".jpeg",
+            "src": "https://76jk.com/images/" + tag.tagId + "/" + entry.entryId + ".jpeg",
             "style": "width:100%;margin-bottom:40px;",
-            "parent": document.getElementById("bonsai")
+            "parent": document.getElementById("tag")
           });
         }
         if(i=== 0) { callback(); }

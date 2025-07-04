@@ -62,7 +62,7 @@
   <script type="text/javascript">
     const loadScript= function() {
       instance.jk= getCookie("jk"); 
-      if(instance.jk) { location.href= "/collection.html"; return; }
+      if(instance.jk) { location.href= "/tags.html"; return; }
     }
 
     const login= function(callback) {
@@ -77,7 +77,7 @@
         if(res== false) { document.getElementById("error").innerHTML= "Wrong credentials"; return; } 
         setCookie("jk", res, 31536000000); instance.jk= getCookie("jk");
         instance.profile= jwt_decode(instance.jk);
-        location.href= "/collection.html"; 
+        location.href= "/tags.html"; 
       });
     }
   </script>
