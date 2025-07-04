@@ -77,17 +77,8 @@
       });
     }
 
-    const generatestatic= function(tagId) {
-      const action= "generatestatic";
-      const url= instance.endpoint + "/" + action.toLowerCase();
-      const variables= ["jk", "tagId"];
-      const required= ["jk", "tagId"];
-      const values= {};
-      const type= "application/x-www-form-urlencoded";
-      post(type, url, action, variables, required, values, function(err, res) {
-        if(err) { alert(err); return; }
-        location.href= "/statics/" + tagId + ".html";
-      });
+    const gotoStatic= function(tagId) {
+      location.href= "/statics/" + tagId + ".html";
     }
 
     const renderTag= function(tag, callback) {
@@ -126,17 +117,17 @@
       
       renderElement({
         "tag": "a",
-        "id": "aGenerate",
+        "id": "gotoStatic",
         "class": "link",
         "style": "cursor:pointer;",
-        "onclick": "javascript:generatestatic('" + tag.tagId + "');",
+        "onclick": "javascript:gotoStatic('" + tag.tagId + "');",
         "parent": document.getElementById("h1Actions")
       });
 
       renderElement({
         "tag": "i", 
         "class": "fa-solid fa-code", 
-        "parent": document.getElementById("aGenerate")
+        "parent": document.getElementById("gotoStatic")
       });
       
       for(var i= tag.entries.length - 1; i>= 0; i--) {
