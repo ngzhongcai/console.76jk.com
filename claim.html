@@ -59,13 +59,12 @@
 
   <script type="text/javascript">
     const loadScript= function() { 
-      instance.jk= getCookie("jk"); 
-      if(!instance.jk) { location.href= "/index.html"; return; }
-
       const url= window.location.href;
       const parts= url.split("/");
       const filename= parts[parts.length- 1];
       const tagId= filename.split(".")[0];
+      instance.jk= getCookie("jk"); 
+      if(!instance.jk) { location.href= "/index.html?redirectUrl=" + window.location.href; return; }
       document.getElementById("tagId").innerHTML= tagId;
       console.log(tagId);
     } 
