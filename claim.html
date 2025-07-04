@@ -80,8 +80,8 @@
     const claim= function(callback) {
       const action= "claim";
       const url= instance.endpoint + "/" + action.toLowerCase();
-      const variables= ["jk", "tagId"];
-      const required= ["jk", "tagId"];
+      const variables= ["jk", "tagId", "name"];
+      const required= ["jk", "tagId", "name"];
       const values= { "tagId": document.getElementById("tagId").innerHTML };
       const type= "application/x-www-form-urlencoded";
       post(type, url, action, variables, required, values, function(err, res) {

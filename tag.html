@@ -118,24 +118,9 @@
 
       renderElement({
         "tag": "i", 
-        "class": "fas fa-plus-circle", 
+        "class": "fa-solid fa-camera", 
         "parent": document.getElementById("aAdd")
-      });
-      
-      renderElement({
-        "tag": "a",
-        "id": "gotoStatic",
-        "class": "link",
-        "style": "cursor:pointer;",
-        "onclick": "javascript:gotoStatic('" + tag.tagId + "');",
-        "parent": document.getElementById("h1Actions")
-      });
-
-      renderElement({
-        "tag": "i", 
-        "class": "fa-solid fa-code", 
-        "parent": document.getElementById("gotoStatic")
-      });
+      }); 
       
       for(var i= tag.entries.length - 1; i>= 0; i--) {
         const entry= tag.entries[i];
@@ -159,7 +144,7 @@
         if(entry.isPicture) {
           renderElement({
             "tag": "img",
-            "src": "https://76jk.com/images/" + tag.tagId + "/" + entry.entryId + ".jpeg",
+            "src": "https://76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg",
             "style": "width:100%;margin-bottom:40px;",
             "parent": document.getElementById("tag")
           });
