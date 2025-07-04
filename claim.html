@@ -76,6 +76,19 @@
       document.getElementById("tagId").innerHTML= tagId;
       console.log(tagId);
     } 
+    
+    const claim= function(callback) {
+      const action= "claim";
+      const url= instance.endpoint + "/" + action.toLowerCase();
+      const variables= ["jk", "tagId"];
+      const required= ["jk", "tagId"];
+      const values= { "tagId": document.getElementById("tagId").innerHTML };
+      const type= "application/x-www-form-urlencoded";
+      post(type, url, action, variables, required, values, function(err, res) {
+        if(err) { alert(err); return; }
+        location.href= "/tag.html?tagId=" + res.tagId;
+      });
+    }
   </script>
 
 </body>
