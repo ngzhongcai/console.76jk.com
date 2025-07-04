@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QR Code Styling</title>
+    <script type="text/javascript" src="https://76jk.com/scripts/qrcodestyle.js"></script>
+</head>
+<body>
+<div id="canvas"></div>
+<script type="text/javascript">
+
+    const qrCode = new QRCodeStyling({
+        width: 300,
+        height: 300,
+        type: "svg",
+        data: "https://76jk.com/statics/b56938ef-6d4f-4209-8e77-efce4ecacaea.html",
+        image: "https://76jk.com/images/logo.png",
+        dotsOptions: {
+            color: "#000000",
+            type: "dots"
+        },
+        backgroundOptions: {
+            color: "#FFFFFF",
+        },
+        imageOptions: { 
+            imageSize: 0.6
+        }
+    });
+
+    qrCode.append(document.getElementById("canvas"));
+    // qrCode.download({ name: "qr", extension: "svg" });
+</script>
+</body>
+</html>
