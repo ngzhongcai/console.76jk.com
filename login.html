@@ -78,7 +78,7 @@
         if(res== false) { document.getElementById("error").innerHTML= "Wrong credentials"; return; } 
         setCookie("jk", res, 31536000000); instance.jk= getCookie("jk");
         instance.profile= jwt_decode(instance.jk);
-        location.href= "/tags.html"; 
+        location.href= "/tags.html";
       });
     }
   </script>
