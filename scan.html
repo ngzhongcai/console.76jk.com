@@ -40,7 +40,7 @@
     }
 
     const html5QrCode= new Html5Qrcode("reader");
-    html5QrCode.start({ facingMode: "environment" }, { fps: 10 },
+    html5QrCode.start({ facingMode: "environment" }, { fps: 50 },
       function onScanSuccess(decodedText, decodedResult) {
         location.href= decodedText;
       }

@@ -30,10 +30,22 @@
   </div>
 
   <div class="wrapper">
-    <div class="pure-g content">
-      <h1 class="pure-u-1" style="margin-top:180px;text-align:center;">76JK — Smart Labels to Tag, Track, and Treasure Your Trees</h1> 
-      <button class="pure-button pure-u-1" style="margin-top:20px!important;" onclick="javascript:location.href='/newUser.html'">Create Account</button>
-      <button class="pure-button pure-u-1" onclick="javascript:location.href='/login.html'">Login</button>
+    <div class="pure-g content narrow-content">
+      <div class="narrow-header pure-u-1">
+        <h1>Login</h1>
+        <p id="error" style="color:#FF0000;">&nbsp;</p>
+      </div>
+      <form class="pure-form pure-u-1" action="javascript:login();">
+        <div class="pure-g">
+          <p class="pure-u-1">Email Address</p>
+          <input id="login-email" type="text" class="pure-input pure-u-1" style="margin-bottom:20px!important;">
+          <p class="pure-u-1">Password</p>
+          <input id="login-password" type="password" class="pure-input pure-u-1" style="margin-bottom:20px!important;">
+          <button id="login-btn" type="submit" class="pure-button pure-u-1">Login</button>
+          <div class="pure-u-1-2" style="text-align:left;"><a class="link" href="/newUser.html">Don't have account? Sign up here</a></div>
+          <div class="pure-u-1-2" style="text-align:right;"><a class="link" href="/forgot.html">Forgot password?</a></div>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -52,6 +64,22 @@
     const loadScript= function() {
       instance.jk= getCookie("jk"); 
       if(instance.jk) { location.href= "/tags.html"; return; }
+    }
+
+    const login= function(callback) {
+      const action= "login";
+      const url= instance.endpoint + "/" + action.toLowerCase();
+      const variables= ["email", "password"];
+      const required= ["email", "password"];
+      const values= {};
+      const type= "application/x-www-form-urlencoded";
+      post(type, url, action, variables, required, values, function(err, res) {
+        if(err) { alert(err); return; }
+        if(res== false) { document.getElementById("error").innerHTML= "Wrong credentials"; return; } 
+        setCookie("jk", res, 31536000000); instance.jk= getCookie("jk");
+        instance.profile= jwt_decode(instance.jk);
+        location.href= "/tags.html"; 
+      });
     }
   </script>
 

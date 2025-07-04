@@ -25,15 +25,24 @@
       <ul class="pure-menu-list" style="float:left;">
         <li class="pure-menu-item"><a class="pure-menu-link" href="/index.html"><span style="color:#B9561A;font-weight:bold;">BONSAI</span> 76JK</a></li>
       </ul>
-
     </div>
   </div>
 
   <div class="wrapper">
-    <div class="pure-g content">
-      <h1 class="pure-u-1" style="margin-top:180px;text-align:center;">76JK — Smart Labels to Tag, Track, and Treasure Your Trees</h1> 
-      <button class="pure-button pure-u-1" style="margin-top:20px!important;" onclick="javascript:location.href='/newUser.html'">Create Account</button>
-      <button class="pure-button pure-u-1" onclick="javascript:location.href='/login.html'">Login</button>
+    <div class="pure-g content narrow-content">
+      <div class="narrow-header pure-u-1">
+        <h2>Start your Bonsai Journal</h2>
+        <p>Choose a name for your bonsai — like Shiro’s Twin Trunk Pine or Morning Wind Maple. Don’t worry, you can rename it later.</p>
+      </div>
+      <form class="pure-form pure-u-1" action="javascript:claim();">
+        <div class="pure-g">
+          <p class="pure-u-1">Tag ID</p>
+          <p id="tagId" class="pure-u-1" style="font-size:26px;margin-top:10px!important;margin-bottom:20px!important;"></p>
+          <p class="pure-u-1">Name</p>
+          <input id="claim-name" type="text" class="pure-input pure-u-1" style="margin-bottom:20px!important;">
+          <button id="claim-btn" type="submit" class="pure-button pure-u-1">Submit</button>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -49,10 +58,17 @@
   </div>
 
   <script type="text/javascript">
-    const loadScript= function() {
+    const loadScript= function() { 
       instance.jk= getCookie("jk"); 
-      if(instance.jk) { location.href= "/tags.html"; return; }
-    }
+      if(!instance.jk) { location.href= "/index.html"; return; }
+
+      const url= window.location.href;
+      const parts= url.split("/");
+      const filename= parts[parts.length- 1];
+      const tagId= filename.split(".")[0];
+      document.getElementById("tagId").innerHTML= tagId;
+      console.log(tagId);
+    } 
   </script>
 
 </body>
