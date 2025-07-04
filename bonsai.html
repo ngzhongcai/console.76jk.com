@@ -49,7 +49,7 @@
   </div>
 
   <script type="text/javascript">
-    const loadScript= function() {
+    const loadScript= function() { 
       const bonsaiId= getValueFromQueryString("bonsaiId");
       if(!bonsaiId) { return; }
       instance.jk= getCookie("jk");
@@ -86,7 +86,7 @@
       const type= "application/x-www-form-urlencoded";
       post(type, url, action, variables, required, values, function(err, res) {
         if(err) { alert(err); return; }
-        console.log(res); 
+        location.href= "/statics/" + bonsaiId + ".html";
       });
     }
 
