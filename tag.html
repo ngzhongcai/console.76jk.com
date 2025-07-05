@@ -99,8 +99,13 @@
 
       renderElement({
         "tag": "h1",
+        "id": "h1Name",
         "class": "pure-u-2-3",
-        "innerHTML": tag.name_,
+        "innerHTML": tag.name_ + 
+          "<a data-admin='true' class='link' style='cursor:pointer;margin-left:15px;' " + 
+            "href='javascript:location.href=\"\/changeName.html?tagId=" + tag.tagId + "\";'>" + 
+              "<i class='fa-solid fa-pen-to-square'></i>" + 
+          "</a>",
         "style": "margin:50px 0px 30px 0px;",
         "parent": document.getElementById("tag")
       });
@@ -152,6 +157,7 @@
           renderElement({
             "tag": "img",
             "src": "https://76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg",
+            "onerror": "this.onerror=null;this.src='/images/default.png';",
             "style": "width:100%;margin-bottom:40px;",
             "parent": document.getElementById("tag")
           });

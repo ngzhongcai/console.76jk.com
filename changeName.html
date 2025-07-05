@@ -25,16 +25,22 @@
       <ul class="pure-menu-list" style="float:left;">
         <li class="pure-menu-item"><a class="pure-menu-link" href="/index.html"><span style="color:#B9561A;font-weight:bold;">BONSAI</span> 76JK</a></li>
       </ul>
-
     </div>
   </div>
 
   <div class="wrapper">
-    <div class="pure-g content">
-      <h1 class="pure-u-1" style="margin-top:150px;text-align:center;">76JK — Smart Labels to Tag and Track Your Tree’s Growth</h1> 
-      <p class="pure-u-1" style="text-align:center;">Capture and upload right from your phone. No app or download required!</p>
-      <button class="pure-button pure-u-1" style="margin-top:20px!important;" onclick="javascript:location.href='/newUser.html'">Create Account</button>
-      <button class="pure-button pure-u-1" onclick="javascript:location.href='/login.html'">Login</button>
+    <div class="pure-g content narrow-content">
+      <div class="narrow-header pure-u-1">
+        <h1>Change name</h1>
+        <p id="error" style="color:#FF0000;">&nbsp;</p>
+      </div>
+      <form class="pure-form pure-u-1" action="javascript:changeName();">
+        <div class="pure-g">
+          <p class="pure-u-1">Name</p>
+          <input id="changeName-name" type="text" class="pure-input pure-u-1" style="margin-bottom:20px!important;">
+          <button id="changeName-btn" type="submit" class="pure-button pure-u-1">Submit</button>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -52,7 +58,40 @@
   <script type="text/javascript">
     const loadScript= function() {
       instance.jk= getCookie("jk"); 
-      if(instance.jk) { location.href= "/tags.html"; return; }
+      if(!instance.jk) { location.href= "/index.html"; return; }
+      instance.profile= jwt_decode(instance.jk); 
+
+      getTag(function(err, res) {
+        if(err) { alert(err); return; } 
+        console.log(res);
+
+        document.getElementById("changeName-name").value= res.name_;
+      });
+    }
+
+    const getTag= function(callback) {
+      const action= "getTag";
+      const url= instance.endpoint + "/" + action.toLowerCase();
+      const variables= ["jk", "tagId"];
+      const required= ["jk", "tagId"];
+      const values= { "tagId": getValueFromQueryString("tagId") };
+      const type= "application/x-www-form-urlencoded";
+      post(type, url, action, variables, required, values, function(err, res) {
+        err ? callback(err) : callback(null, res);
+      });
+    }
+
+    const changeName= function(tagId, callback) {
+      const action= "changeName";
+      const url= instance.endpoint + "/" + action.toLowerCase();
+      const variables= ["jk", "tagId", "name"];
+      const required= ["jk", "tagId", "name"];
+      const values= { "tagId": getValueFromQueryString("tagId") };
+      const type= "application/x-www-form-urlencoded";
+      post(type, url, action, variables, required, values, function(err, res) {
+        if(err) { alert(err); return; }
+        location.href= "/tag.html?tagId=" + getValueFromQueryString("tagId");
+      });
     }
   </script>
 

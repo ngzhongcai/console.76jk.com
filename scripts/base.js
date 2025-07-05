@@ -174,6 +174,7 @@ const renderElement= function(params) {
   if(params.style) { element.setAttribute("style", params.style); }
   if(params.onclick) { element.setAttribute("onclick", params.onclick); }
   if(params.onchange) { element.setAttribute("onchange", params.onchange); }
+  if(params.onerror) { element.setAttribute("onerror", params.onerror); }
   if(params.oninput) { element.setAttribute("oninput", params.oninput); }
   if(params.innerHTML) { element.innerHTML= params.innerHTML; }
   if(params.value) { element.value= params.value; }
