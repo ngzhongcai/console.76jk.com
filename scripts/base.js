@@ -184,6 +184,7 @@ const renderElement= function(params) {
   if(params.href) { element.href= params.href; }
   if(params.placeholder) { element.placeholder= params.placeholder; }
   if(params.src) { element.setAttribute("src", params.src); }
+  if(params["data-admin"]) { element.setAttribute("data-admin", params["data-admin"]); }
   if(params["aria-hidden"]) { element.setAttribute("aria-hidden", params["aria-hidden"]); }
   params.parent.appendChild(element);
   return element;
