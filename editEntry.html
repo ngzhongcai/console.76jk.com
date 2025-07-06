@@ -31,14 +31,14 @@
   <div class="wrapper">
     <div class="pure-g content">
       <div class="narrow-header pure-u-1">
-        <h1>Forgot password</h1>
+        <h1>Edit name</h1>
         <p id="error" style="color:#FF0000;">&nbsp;</p>
       </div>
-      <form class="pure-form pure-u-1" action="javascript:forgot();">
+      <form class="pure-form pure-u-1" action="javascript:editEntry();">
         <div class="pure-g">
-          <p class="pure-u-1">Email Address</p>
-          <input id="forgot-email" type="text" class="pure-input pure-u-1" style="margin-bottom:20px!important;">
-          <button id="forgot-btn" type="submit" class="pure-button pure-u-1">Submit</button>
+          <p class="pure-u-1">Time</p>
+          <input id="editEntry-time" type="text" class="pure-input pure-u-1" style="margin-bottom:20px!important;">
+          <button id="editEntry-btn" type="submit" class="pure-button pure-u-1">Submit</button>
         </div>
       </form>
     </div>
@@ -58,19 +58,39 @@
   <script type="text/javascript">
     const loadScript= function() {
       instance.jk= getCookie("jk"); 
-      if(instance.jk) { location.href= "/tags.html"; return; }
+      if(!instance.jk) { location.href= "/index.html"; return; }
+      instance.profile= jwt_decode(instance.jk); 
+
+      getEntry(function(err, res) {
+        if(err) { alert(err); return; } 
+        console.log(res);
+
+        document.getElementById("editEntry-name").value= res.name_;
+      });
     }
 
-    const forgot= function(callback) {
-      const action= "forgot";
+    const getEntry= function(callback) {
+      const action= "getEntry";
       const url= instance.endpoint + "/" + action.toLowerCase();
-      const variables= ["email"];
-      const required= ["email"];
-      const values= {};
+      const variables= ["jk", "tagId"];
+      const required= ["jk", "tagId"];
+      const values= { "tagId": getValueFromQueryString("tagId") };
+      const type= "application/x-www-form-urlencoded";
+      post(type, url, action, variables, required, values, function(err, res) {
+        err ? callback(err) : callback(null, res);
+      });
+    }
+
+    const editEntry= function(tagId, callback) {
+      const action= "editEntry";
+      const url= instance.endpoint + "/" + action.toLowerCase();
+      const variables= ["jk", "tagId", "name"];
+      const required= ["jk", "tagId", "name"];
+      const values= { "tagId": getValueFromQueryString("tagId") };
       const type= "application/x-www-form-urlencoded";
       post(type, url, action, variables, required, values, function(err, res) {
         if(err) { alert(err); return; }
-        location.href= "/forgetting.html"; 
+        location.href= "/tag.html?tagId=" + getValueFromQueryString("tagId");
       });
     }
   </script>
