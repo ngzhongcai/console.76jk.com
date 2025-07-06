@@ -59,9 +59,7 @@
     const loadScript= function() { 
       const tagId= getValueFromQueryString("tagId");
       if(!tagId) { 
-        console.log("NO TAGID"); 
-        // STATICS WILL NOT PASS THIS POINT. 
-        // https://76jk.com/statics/b56938ef-6d4f-4209-8e77-efce4ecacaea.html
+        console.log("NO TAGID");
         return; 
       } 
       
@@ -131,24 +129,30 @@
       renderElement({
         "tag": "i", 
         "class": "fa-solid fa-camera", 
+        "style": "float:right;",
         "parent": document.getElementById("aAdd")
       }); 
       
+
       for(var i= tag.entries.length - 1; i>= 0; i--) {
         const entry= tag.entries[i];
 
         renderElement({
           "tag": "p",
           "class": "pure-u-1",
-          "innerHTML": moment(entry.lastUpdated).format("MMM D, YYYY"),
-          "style": "font-size:26px;margin-bottom:5px;",
+          "innerHTML": moment(entry.lastUpdated).format("D MMM YYYY, HH:mm"),
+          "style": "font-size:16px;margin-bottom:5px;font-style:italic",
           "parent": document.getElementById("tag")
         });
 
         renderElement({
           "tag": "p",
           "class": "pure-u-1",
-          "innerHTML": entry.description,
+          "innerHTML": entry.description + 
+            "<a data-admin='true' class='link' style='cursor:pointer;float:right;' " + 
+              "href='javascript:location.href=\"\/changeEntry.html?entryId=" + entry.entryId + "&tagId=" + tag.tagId + "\";'>" + 
+                "<i class='fa-solid fa-pen-to-square'></i>" + 
+            "</a>",
           "style": "font-size:26px;margin-bottom:5px;",
           "parent": document.getElementById("tag")
         });
@@ -157,7 +161,7 @@
           renderElement({
             "tag": "img",
             "src": "https://76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg", 
-            "style": "width:100%;margin-bottom:40px;",
+            "style": "width:100%;margin-bottom:60px;",
             "parent": document.getElementById("tag")
           });
         }
