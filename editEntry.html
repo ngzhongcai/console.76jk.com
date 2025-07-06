@@ -61,7 +61,7 @@
       if(!instance.jk) { location.href= "/index.html"; return; }
       instance.profile= jwt_decode(instance.jk); 
 
-      getEntry(function(err, res) {
+      getTag(function(err, res) {
         if(err) { alert(err); return; } 
         console.log(res);
 
@@ -69,8 +69,8 @@
       });
     }
 
-    const getEntry= function(callback) {
-      const action= "getEntry";
+    const getTag= function(callback) {
+      const action= "getTag";
       const url= instance.endpoint + "/" + action.toLowerCase();
       const variables= ["jk", "tagId"];
       const required= ["jk", "tagId"];
