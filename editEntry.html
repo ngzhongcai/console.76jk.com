@@ -73,8 +73,8 @@
         const entry= res.entries.find(function(e) { return e.entryId=== getValueFromQueryString("entryId"); });
         console.log(entry); 
         
-        document.getElementById("time").innerHTML= "ie, " + moment(entry.firstCreated).format("D MMM YYYY, HH:mm");
-        document.getElementById("editEntry-time").value= moment(entry.firstCreated).format("D MMM YYYY, HH:mm");
+        document.getElementById("time").innerHTML= "ie, " + moment(entry.firstCreated).local().format("D MMM YYYY, HH:mm");
+        document.getElementById("editEntry-time").value= moment(entry.firstCreated).local().format("D MMM YYYY, HH:mm");
         document.getElementById("editEntry-description").value= entry.description;
 
       });
@@ -114,7 +114,8 @@
       const type= "application/x-www-form-urlencoded";
       post(type, url, action, variables, required, values, function(err, res) {
         if(err) { alert(err); return; } 
-        console.log("HIHI");
+        location.href= "/tag.html?tagId=" + getValueFromQueryString("tagId");
+        // TODO: NEED TO FREEZE A WHILE, TO MAKE IT LOOK LIKE APPLICATION IS WORKING
       });
     }
 

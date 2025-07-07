@@ -140,7 +140,7 @@
         renderElement({
           "tag": "p",
           "class": "pure-u-1",
-          "innerHTML": moment(entry.firstCreated).format("D MMM YYYY, HH:mm"),
+          "innerHTML": moment(entry.firstCreated).local().format("D MMM YYYY, HH:mm"),
           "style": "font-size:16px;margin-bottom:5px;font-style:italic",
           "parent": document.getElementById("tag")
         });
