@@ -55,26 +55,41 @@
     </div>
   </div>
   
-  <script type="text/javascript" data-admin="true">
-    const loadScript= function() { 
+  <script type="text/javascript">
+    (function() {
       const tagId= getValueFromQueryString("tagId");
-      if(!tagId) { 
-        console.log("NO TAGID");
-        return; 
-      } 
-      
       instance.jk= getCookie("jk");
-      if(!instance.jk) { location.href= "/statics/" + tagId + ".html"; return; }
-      instance.profile= jwt_decode(instance.jk); 
       
-      getTag(tagId, function(err, res) {
-        if(err) { alert(err); return; } 
-        renderTag(res, function(err, res) {
-          if(err) { alert(err); return; }
-          console.log("OK"); 
-        });
-      });      
+      if(!instance.jk) {
+        // ie, non-users do not have JWT token, immediately dispatch them to public static sites
+        location.href= "/statics/" + tagId + ".html";
+        return;
+      }
+
+      if(!tagId) { 
+        // non-users can access public static pages only
+        // if current page is public static, stays that way
+        // ie, https://76jk.com/statics/b56938ef-6d4f-4209-8e77-efce4ecacaea.html
+        return; 
+      }
+      
+      instance.profile= jwt_decode(instance.jk); 
+    })();
+  </script>
+
+  <script type="text/javascript" data-admin="true">
+    console.log("B");
+    
+    const loadScript= function() { 
     } 
+    
+    getTag(tagId, function(err, res) {
+      if(err) { alert(err); return; } 
+      renderTag(res, function(err, res) {
+        if(err) { alert(err); return; }
+        console.log("OK"); 
+      });
+    });      
 
     const getTag= function(tagId, callback) {
       const action= "getTag";
