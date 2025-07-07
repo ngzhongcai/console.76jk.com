@@ -35,7 +35,14 @@
           <h1 class="pure-u-2-3" style="margin:50px 0px 30px 0px;">Edit entry</h1>
           
           <h1 id="deleteEntry" class="pure-u-1-3" style="margin:50px 0px 30px 0px;cursor:pointer;text-align:right;">
-            <a class="link" onclick="javascript:deleteEntry();"><i id="deleteIcon" class="fas fa-trash-alt"></i></a>
+            <a class="link" onclick="javascript:deleteEntry();">
+              <i class="fas fa-trash-alt"></i> 
+            </a>
+          </h1>
+          <h1 id="deleteEntry-spin" class="pure-u-1-3" style="margin:50px 0px 30px 0px;cursor:pointer;text-align:right;display:none;;">
+            <a class="link" style="cursor:default;"> 
+              <i class="fas fa-spinner fa-spin"></i>
+            </a>
           </h1>
 
           <p class="pure-u-1">Time, <em id="time"></em></p>
@@ -106,6 +113,9 @@
     }
 
     const deleteEntry= function(tagId, callback) {
+      document.getElementById("deleteEntry").style.display= "none";
+      document.getElementById("deleteEntry-spin").style.display= "block";
+      
       const action= "deleteEntry";
       const url= instance.endpoint + "/" + action.toLowerCase();
       const variables= ["jk", "tagId", "entryId"];
@@ -115,7 +125,6 @@
       post(type, url, action, variables, required, values, function(err, res) {
         if(err) { alert(err); return; } 
         location.href= "/tag.html?tagId=" + getValueFromQueryString("tagId");
-        // TODO: NEED TO FREEZE A WHILE, TO MAKE IT LOOK LIKE APPLICATION IS WORKING
       });
     }
 
