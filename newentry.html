@@ -43,7 +43,7 @@
           <h1 class="pure-u-1" style="margin:50px 0px 30px 0px;">New entry</h1>
           
           <img id="newEntry-preview" style="max-width:100%;display:none;margin-top:10px;"/>
-          <input id="newEntry-photo" type="file" accept="image/*" style="display:none;">
+          <input id="newEntry-photo" type="file" accept="image/jpeg, image/png, image/heic" style="display:none;">
           <label for="newEntry-photo" class="pure-button pure-u-1" style="padding-top:10px!important;margin-bottom:20px!important;">Attach Photo</label>
 
           <p class="pure-u-1" style="font-size:26px;font-style:italic;margin-bottom:5px;">Description:</p>
@@ -72,13 +72,24 @@
       if(!instance.jk) { location.href= "/index.html"; return; }
       instance.profile= jwt_decode(instance.jk);
 
+      const MAX_SIZE_MB= 10;
+      const allowedTypes= ["image/jpeg", "image/png", "image/heic"];
       document.getElementById("newEntry-photo").addEventListener("change", function(event) {
         const file= event.target.files[0];
-        if(file) {
-          const preview= document.getElementById("newEntry-preview");
-          preview.src= URL.createObjectURL(file);
-          preview.style.display= "block";
+        if(!file) { return; }
+        if(!allowedTypes.includes(file.type)) {
+          alert("Only JPEG, PNG or HEIC images are allowed.");
+          event.target.value= "";
+          return;
         }
+        if(file.size > MAX_SIZE_MB * 1024 * 1024) {
+          alert("File is too large. Please choose a file under ' + MAX_SIZE_MB + 'MB.");
+          event.target.value= "";
+          return;
+        }
+        const preview= document.getElementById("newEntry-preview");
+        preview.src= URL.createObjectURL(file);
+        preview.style.display= "block";
       });
     }
 
