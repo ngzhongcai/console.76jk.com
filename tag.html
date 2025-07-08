@@ -66,108 +66,109 @@
     const loadScript= function() {
       const tagId= getValueFromQueryString("tagId");
       instance.jk= getCookie("jk");
-      if(!instance.jk) { console.log("TAG.HTML"); /* location.href= "/statics/" + tagId + ".html"; */ return; }
+      if(!instance.jk) { console.log("TAG.HTML"); location.href= "/statics/" + tagId + ".html"; return; }
       if(!tagId) { return; }
       instance.profile= jwt_decode(instance.jk); 
 
       getTag(tagId, function(err, res) {
-        if(err) { alert(err); return; }
-        if(!res) { location.href= "https://76jk.com/statics/" + tagId + ".html"; }
+        if(err) { alert(err); return; } 
+        if(!res) { location.href= "https://76jk.com/statics/" + tagId + ".html"; return; }
+
         renderTag(res, function(err, res) {
           if(err) { alert(err); return; }
           console.log("OK");
         });
       });
-
-      const getTag= function(tagId, callback) {
-        const action= "getTag";
-        const url= instance.endpoint + "/" + action.toLowerCase();
-        const variables= ["jk", "tagId"];
-        const required= ["jk", "tagId"];
-        const values= { "tagId": tagId };
-        const type= "application/x-www-form-urlencoded";
-        post(type, url, action, variables, required, values, function(err, res) {
-          err ? callback(err) : callback(null, res);
-        });
-      }
-
-      const renderTag= function(tag, callback) {
-        document.getElementById("tag").innerHTML= "";
-        renderElement({
-          "tag": "h1",
-          "id": "h1Name",
-          "class": "pure-u-2-3",
-          "innerHTML": tag.name_ + 
-            "<a data-admin='true' class='link' style='cursor:pointer;margin-left:15px;' " + 
-              "href='javascript:location.href=\"\/editName.html?tagId=" + tag.tagId + "\";'>" + 
-              "<i class='fa-solid fa-pen-to-square'></i>" +
-            "</a>",
-          "style": "margin:50px 0px 30px 0px;",
-          "parent": document.getElementById("tag")
-        });
-        
-        renderElement({
-          "tag": "h1",
-          "id": "h1Actions",
-          "class": "pure-u-1-3",
-          "style": "text-align:right;margin:50px 0px 30px 0px;",
-          "parent": document.getElementById("tag")
-        });
-        
-        renderElement({
-          "tag": "a",
-          "id": "aAdd",
-          "class": "link",
-          "data-admin": "true",
-          "style": "cursor:pointer;margin-right:10px;",
-          "onclick": "javascript:location.href='newEntry.html?tagId=" + tag.tagId + "'",
-          "parent": document.getElementById("h1Actions")
-        });
-        
-        renderElement({
-          "tag": "i", 
-          "class": "fa-solid fa-camera", 
-          "style": "float:right;",
-          "parent": document.getElementById("aAdd")
-        });
-        
-
-        for(var i= tag.entries.length - 1; i>= 0; i--) {
-          const entry= tag.entries[i];
-          
-          renderElement({
-            "tag": "p",
-            "class": "pure-u-1",
-            "innerHTML": moment(entry.firstCreated).local().format("D MMM YYYY, HH:mm"),
-            "style": "font-size:16px;margin-bottom:5px;font-style:italic",
-            "parent": document.getElementById("tag")
-          });
-          
-          renderElement({
-            "tag": "p",
-            "class": "pure-u-1",
-            "innerHTML": entry.description + 
-            "<a data-admin='true' class='link' style='cursor:pointer;float:right;' " +
-              "href=\"\/editEntry.html?entryId=" + entry.entryId + "&tagId=" + tag.tagId + "\";'>" + 
-              "<i class='fa-solid fa-pen-to-square'></i>" + 
-            "</a>",
-            "style": "font-size:26px;margin-bottom:5px;",
-            "parent": document.getElementById("tag")
-          });
-          
-          if(entry.isPhoto) {
-            renderElement({
-              "tag": "img",
-              "src": "https://76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg", 
-              "style": "width:100%;margin-bottom:60px;",
-              "parent": document.getElementById("tag")
-            });
-          }
-          if(i=== 0) { callback(); }
-        }
-      }
-    } 
+    }
     
+    const getTag= function(tagId, callback) {
+      const action= "getTag";
+      const url= instance.endpoint + "/" + action.toLowerCase();
+      const variables= ["jk", "tagId"];
+      const required= ["jk", "tagId"];
+      const values= { "tagId": tagId };
+      const type= "application/x-www-form-urlencoded";
+      post(type, url, action, variables, required, values, function(err, res) {
+        err ? callback(err) : callback(null, res);
+      });
+    }
+    
+    const renderTag= function(tag, callback) {
+      document.getElementById("tag").innerHTML= "";
+      renderElement({
+        "tag": "h1",
+        "id": "h1Name",
+        "class": "pure-u-2-3",
+        "innerHTML": tag.name_ + 
+          "<a data-admin='true' class='link' style='cursor:pointer;margin-left:15px;' " + 
+            "href='javascript:location.href=\"\/editName.html?tagId=" + tag.tagId + "\";'>" + 
+            "<i class='fa-solid fa-pen-to-square'></i>" +
+          "</a>",
+        "style": "margin:50px 0px 30px 0px;",
+        "parent": document.getElementById("tag")
+      });
+        
+      renderElement({
+        "tag": "h1",
+        "id": "h1Actions",
+        "class": "pure-u-1-3",
+        "style": "text-align:right;margin:50px 0px 30px 0px;",
+        "parent": document.getElementById("tag")
+      });
+        
+      renderElement({
+        "tag": "a",
+        "id": "aAdd",
+        "class": "link",
+        "data-admin": "true",
+        "style": "cursor:pointer;margin-right:10px;",
+        "onclick": "javascript:location.href='newEntry.html?tagId=" + tag.tagId + "'",
+        "parent": document.getElementById("h1Actions")
+      });
+        
+      renderElement({
+        "tag": "i", 
+        "class": "fa-solid fa-camera", 
+        "style": "float:right;",
+        "parent": document.getElementById("aAdd")
+      });
+        
+
+      for(var i= tag.entries.length - 1; i>= 0; i--) {
+        const entry= tag.entries[i];
+          
+        renderElement({
+          "tag": "p",
+          "class": "pure-u-1",
+          "innerHTML": moment(entry.firstCreated).local().format("D MMM YYYY, HH:mm"),
+          "style": "font-size:16px;margin-bottom:5px;font-style:italic",
+          "parent": document.getElementById("tag")
+        });
+          
+        renderElement({
+          "tag": "p",
+          "class": "pure-u-1",
+          "innerHTML": entry.description + 
+          "<a data-admin='true' class='link' style='cursor:pointer;float:right;' " +
+            "href=\"\/editEntry.html?entryId=" + entry.entryId + "&tagId=" + tag.tagId + "\";'>" + 
+            "<i class='fa-solid fa-pen-to-square'></i>" + 
+          "</a>",
+          "style": "font-size:26px;margin-bottom:5px;",
+          "parent": document.getElementById("tag")
+        });
+          
+        if(entry.isPhoto) {
+          renderElement({
+            "tag": "img",
+            "src": "https://76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg", 
+            "style": "width:100%;margin-bottom:60px;",
+            "parent": document.getElementById("tag")
+          });
+        }
+        if(i=== 0) { callback(); }
+      }
+    }
+
   </script>
 
 </body>
