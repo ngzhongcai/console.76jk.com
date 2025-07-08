@@ -65,7 +65,7 @@
   </div>
 
   <script type="text/javascript">
-    const loadScript= function() { 
+    (function() {
       const url= window.location.href;
       const parts= url.split("/");
       const filename= parts[parts.length- 1];
@@ -74,20 +74,20 @@
       if(!instance.jk) { location.href= "/claiming.html"; return; }
       document.getElementById("tagId").innerHTML= tagId;
       console.log(tagId);
-    } 
-    
-    const claim= function(callback) {
-      const action= "claim";
-      const url= instance.endpoint + "/" + action.toLowerCase();
-      const variables= ["jk", "tagId", "name"];
-      const required= ["jk", "tagId", "name"];
-      const values= { "tagId": document.getElementById("tagId").innerHTML };
-      const type= "application/x-www-form-urlencoded";
-      post(type, url, action, variables, required, values, function(err, res) {
-        if(err) { alert(err); return; }
-        location.href= "/tag.html?tagId=" + res.tagId;
-      });
-    }
+      
+      const claim= function(callback) {
+        const action= "claim";
+        const url= instance.endpoint + "/" + action.toLowerCase();
+        const variables= ["jk", "tagId", "name"];
+        const required= ["jk", "tagId", "name"];
+        const values= { "tagId": document.getElementById("tagId").innerHTML };
+        const type= "application/x-www-form-urlencoded";
+        post(type, url, action, variables, required, values, function(err, res) {
+          if(err) { alert(err); return; }
+          location.href= "/tag.html?tagId=" + res.tagId;
+        });
+      }
+    })();
   </script>
 
 </body>

@@ -52,10 +52,9 @@
       instance.jk= getCookie("jk");
       if(!instance.jk) { location.href= "/index.html"; return; }
       
-      const tagId= getValueFromQueryString("tagId");
       const qrCode= new QRCodeStyling({
         width: 512, height: 512, type: "svg",
-        data: "https://76jk.com/tag.html?tagId=" + tagId,
+        data: "https://76jk.com/tag.html?tagId=" + getValueFromQueryString("tagId"),
         image: "https://76jk.com/images/logo.png",
         dotsOptions: { color: "#000000", type: "dots" },
         backgroundOptions: { color: "#FFFFFF", },
@@ -67,12 +66,9 @@
         const reader= new FileReader();
         reader.onload= function() {
           window.qrBase64= reader.result;
-          console.log(window.qrBase64);
         };
         reader.readAsDataURL(res);
       });
-      
-      
     }
   </script>
 
