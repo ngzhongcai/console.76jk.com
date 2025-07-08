@@ -45,7 +45,7 @@
             </a>
           </h1>
 
-          <img id="editEntry-preview" style="max-width:100%;display:none;margin-top:10px;"/>
+          <img id="editEntry-preview" style="width:100%;display:none;margin-top:10px;"/>
           <input id="editEntry-photo" type="file" accept="image/jpeg, image/png, image/heic" style="display:none;">
           <label for="editEntry-photo" class="pure-button pure-u-1" style="padding-top:10px!important;margin-bottom:20px!important;">Attach Photo</label>
 
@@ -78,15 +78,74 @@
       if(!instance.jk) { location.href= "/index.html"; return; }
       instance.profile= jwt_decode(instance.jk); 
 
+      const input= document.getElementById("editEntry-photo");
+      input.addEventListener("change", function(event) {
+        const file= event.target.files[0];
+        if(!file) { return; }
+        const MAX_SIZE_MB= 10;
+        const allowedTypes= ["image/jpeg", "image/png", "image/heic"];
+        
+        if(!allowedTypes.includes(file.type)) {
+          alert("Only JPEG, PNG or HEIC images are allowed.");
+          input.value= "";
+          return;
+        }
+        
+        if(file.size > MAX_SIZE_MB * 1024 * 1024) {
+          alert("File is too large. Please choose a file under " + MAX_SIZE_MB + "MB.");
+          input.value= "";
+          return;
+        }
+        
+        if(file.type=== "image/heic") {
+          heic2any({
+            blob: file,
+            toType: "image/jpeg",
+            quality: 0.8
+          })
+          .then(function(convertedBlob) {
+            const jpegFile = new File([convertedBlob], file.name.replace(/\.heic$/i, ".jpg"), {
+              type: "image/jpeg"
+            });
+            
+            const dataTransfer= new DataTransfer();
+            dataTransfer.items.add(jpegFile);
+            input.files= dataTransfer.files;
+          
+            const preview= document.getElementById("editEntry-preview");
+            preview.src= URL.createObjectURL(jpegFile);
+            preview.style.display = "block";
+          })
+          .catch(function(err) {
+            alert("Failed to convert HEIC image. Please try another file.");
+            console.error("HEIC conversion error:", err);
+            input.value= "";
+          });
+          return;
+        }
+
+        // Direct preview for JPEG or PNG
+        const preview= document.getElementById("editEntry-preview");
+        preview.src= URL.createObjectURL(file);
+        preview.style.display= "block";
+      });
+
       getTag(function(err, res) {
         if(err) { alert(err); return; }
-        console.log(res);
-        const entry= res.entries.find(function(e) { return e.entryId=== getValueFromQueryString("entryId"); });
+        const tag= res;
+        console.log(tag);
+        const entry= tag.entries.find(function(e) { return e.entryId=== getValueFromQueryString("entryId"); });
         console.log(entry); 
         
         document.getElementById("time").innerHTML= "ie, " + moment(entry.firstCreated).local().format("D MMM YYYY, HH:mm");
         document.getElementById("editEntry-time").value= moment(entry.firstCreated).local().format("D MMM YYYY, HH:mm");
         document.getElementById("editEntry-description").value= entry.description;
+        
+        if(entry.isPhoto) {
+          const preview= document.getElementById("editEntry-preview");
+          preview.src= "https://76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg";
+          preview.style.display= "block";
+        }
 
       });
     }
@@ -102,17 +161,24 @@
         err ? callback(err) : callback(null, res);
       });
     }
-
-    const editEntry= function(tagId, callback) {
-      const action= "editEntry";
-      const url= instance.endpoint + "/" + action.toLowerCase();
-      const variables= ["jk", "tagId", "entryId", "name"];
-      const required= ["jk", "tagId", "entryId", "name"];
-      const values= { "tagId": getValueFromQueryString("tagId"), "entryId": getValueFromQueryString("entryId") };
-      const type= "application/x-www-form-urlencoded";
-      post(type, url, action, variables, required, values, function(err, res) {
+    
+    const editEntry= function(callback) {
+      extractBase64String(function(err, res) {
         if(err) { alert(err); return; }
-        location.href= "/tag.html?tagId=" + getValueFromQueryString("tagId");
+        const time= document.getElementById("editEntry-time").value;
+        const m= moment(time, "D MMM YYYY, HH:mm", true);
+        if(!m.isValid()) { alert("Invalid date format"); return; }  
+
+        const action= "editEntry";
+        const url= instance.endpoint + "/" + action.toLowerCase();
+        const variables= ["jk", "tagId", "time", "description", "photo"];
+        const required= ["jk", "tagId", "time", "description", "photo"];
+        const values= { "tagId": getValueFromQueryString("tagId"), "entryId": getValueFromQueryString("entryId"), "photo": res, "time": m.unix() };
+        const type= "application/x-www-form-urlencoded";
+        post(type, url, action, variables, required, values, function(err, res) {
+          if(err) { alert(err); return; }
+          location.href= "/tag.html?tagId=" + res.tagId;
+        });
       });
     }
 
