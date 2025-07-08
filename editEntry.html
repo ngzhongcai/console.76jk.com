@@ -45,6 +45,10 @@
             </a>
           </h1>
 
+          <img id="editEntry-preview" style="max-width:100%;display:none;margin-top:10px;"/>
+          <input id="editEntry-photo" type="file" accept="image/jpeg, image/png, image/heic" style="display:none;">
+          <label for="editEntry-photo" class="pure-button pure-u-1" style="padding-top:10px!important;margin-bottom:20px!important;">Attach Photo</label>
+
           <p class="pure-u-1">Time, <em id="time"></em></p>
           <input id="editEntry-time" type="text" class="pure-input pure-u-1" style="margin-bottom:20px!important;">
 
@@ -126,6 +130,19 @@
         if(err) { alert(err); return; } 
         location.href= "/tag.html?tagId=" + getValueFromQueryString("tagId");
       });
+    }
+    
+    const extractBase64String= function(callback) {
+      const input= document.getElementById("editEntry-photo");
+      const file= input.files[0];
+      if(!file) { callback(); return; }
+      const reader= new FileReader();
+      reader.onloadend= function() {
+        const result= reader.result;
+        const base64String= result.split(",")[1];
+        callback(null, encodeURIComponent(base64String));
+      };
+      reader.readAsDataURL(file);
     }
 
 
