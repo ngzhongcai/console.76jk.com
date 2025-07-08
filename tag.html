@@ -63,13 +63,22 @@
   </div>
   
   <script type="text/javascript">
-    (function() {
+    const loadScript= function() {
       const tagId= getValueFromQueryString("tagId");
       instance.jk= getCookie("jk");
-      if(!instance.jk) { console.log("TAG.HTML"); location.href= "/statics/" + tagId + ".html"; return; }
+      if(!instance.jk) { console.log("TAG.HTML"); /* location.href= "/statics/" + tagId + ".html"; */ return; }
       if(!tagId) { return; }
       instance.profile= jwt_decode(instance.jk); 
-      
+
+      getTag(tagId, function(err, res) {
+        if(err) { alert(err); return; }
+        if(!res) { location.href= "https://76jk.com/statics/" + tagId + ".html"; }
+        renderTag(res, function(err, res) {
+          if(err) { alert(err); return; }
+          console.log("OK");
+        });
+      });
+
       const getTag= function(tagId, callback) {
         const action= "getTag";
         const url= instance.endpoint + "/" + action.toLowerCase();
@@ -81,7 +90,7 @@
           err ? callback(err) : callback(null, res);
         });
       }
-      
+
       const renderTag= function(tag, callback) {
         document.getElementById("tag").innerHTML= "";
         renderElement({
@@ -157,25 +166,8 @@
           if(i=== 0) { callback(); }
         }
       }
-      
-      getTag(tagId, function(err, res) {
-        if(err) { alert(err); return; }
-        if(!res) { location.href= "https://76jk.com/statics/" + tagId + ".html"; }
-        renderTag(res, function(err, res) {
-          if(err) { alert(err); return; }
-          console.log("OK");
-        });
-      });
-
-    })();
-  </script>
-
-  <script type="text/javascript" data-admin="true"> 
-
+    } 
     
-
-    
-
   </script>
 
 </body>
