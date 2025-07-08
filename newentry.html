@@ -43,15 +43,15 @@
         <div class="pure-g">
           <h1 class="pure-u-1" style="margin:50px 0px 30px 0px;">New entry</h1>
 
+          <img id="newEntry-preview" style="max-width:100%;display:none;margin-top:10px;"/>
+          <input id="newEntry-photo" type="file" accept="image/jpeg, image/png, image/heic" style="display:none;">
+          <label for="newEntry-photo" class="pure-button pure-u-1" style="padding-top:10px!important;margin-bottom:20px!important;">Attach Photo</label>
+
           <p class="pure-u-1">Time, <em id="time"></em></p>
           <input id="newEntry-time" type="text" class="pure-input pure-u-1" style="margin-bottom:20px!important;">
           
           <p class="pure-u-1" style="font-size:26px;font-style:italic;margin-bottom:5px;">Description:</p>
           <textarea id="newEntry-description" class="pure-input pure-u-1" rows="6" style="margin-bottom:20px!important;border:1px #CCCCCC solid;resize:vertical;"></textarea>
-
-          <img id="newEntry-preview" style="max-width:100%;display:none;margin-top:10px;"/>
-          <input id="newEntry-photo" type="file" accept="image/jpeg, image/png, image/heic" style="display:none;">
-          <label for="newEntry-photo" class="pure-button pure-u-1" style="padding-top:10px!important;margin-bottom:20px!important;">Attach Photo</label>
 
           <button id="newEntry-btn" type="submit" class="pure-button pure-u-1" style="margin-bottom:30px!important;">Submit</button>
         </div>
@@ -148,11 +148,15 @@
     const newEntry= function(callback) {
       extractBase64String(function(err, res) {
         if(err) { alert(err); return; }
+        const time= document.getElementById("newEntry-time").value;
+        const m= moment(time, "D MMM YYYY, HH:mm", true);
+        if(!m.isValid()) { alert("Invalid date format"); return; }  
+
         const action= "newEntry";
         const url= instance.endpoint + "/" + action.toLowerCase();
-        const variables= ["jk", "tagId", "description", "photo"];
-        const required= ["jk", "tagId", "description"];
-        const values= { "photo": res };
+        const variables= ["jk", "tagId", "time", "description", "photo"];
+        const required= ["jk", "tagId", "time", "description", "photo"];
+        const values= { "photo": res, "time": m.unix() };
         const type= "application/x-www-form-urlencoded";
         post(type, url, action, variables, required, values, function(err, res) {
           if(err) { alert(err); return; }
