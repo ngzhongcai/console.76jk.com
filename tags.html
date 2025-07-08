@@ -118,19 +118,29 @@
         renderElement({
           "tag": "div",
           "id": "div-" + tag.tagId,
-          "class": "pure-u-1 pure-g", 
-          "style": "border:1px dotted #444444;padding:10px;margin-bottom:20px;cursor:pointer;width:100%;box-sizing:border-box;",
+          "class": "pure-u-1-2 pure-g", 
+          "style": "border:1px dotted #444444;padding:10px;margin-bottom:20px;cursor:pointer;width:48%;box-sizing:border-box;",
           "onclick": "javascript:location.href='tag.html?tagId=" + tag.tagId + "'",
           "parent": document.getElementById("tags")
-        });
+        }); 
 
+        console.log(tag);
+        if(tag.entries.length> 0) {
+          renderElement({
+            "tag": "img",
+            "src": "https://76jk.com/statics/images/" + tag.tagId + "/" + tag.entries[0].entryId + ".jpeg", 
+            "style": "width:100%;margin-bottom:5px;",
+            "parent": document.getElementById("div-" + tag.tagId)
+          });
+        }
+        
         renderElement({
           "tag": "p",
           "class": "pure-u-1",
           "innerHTML": tag.name_== " " ? tag.tagId : tag.name_,
           "style": tag.name_== " " ? 
             "font-size:26px;margin-bottom:5px;font-style:italic;" :
-            "font-size:26px;margin-bottom:5px;",
+            "font-size:26px;margin-bottom:5px;text-align:center;",
           "parent": document.getElementById("div-" + tag.tagId)
         });
 
