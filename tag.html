@@ -170,15 +170,14 @@
           "style": "font-size:26px;margin-bottom:5px;",
           "parent": document.getElementById("tag")
         });
-          
-        if(entry.isPhoto) {
-          renderElement({
-            "tag": "img",
-            "src": "https://76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg", 
-            "style": "width:100%;margin-bottom:60px;",
-            "parent": document.getElementById("tag")
-          });
-        }
+        
+        renderElement({
+          "tag": "img",
+          "src": "https://76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg", 
+          "style": "width:100%;margin-bottom:60px;",
+          "parent": document.getElementById("tag")
+        });
+
         if(i=== 0) { callback(); }
       }
     }

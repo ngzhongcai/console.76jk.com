@@ -141,11 +141,9 @@
         document.getElementById("editEntry-time").value= moment(entry.firstCreated).local().format("D MMM YYYY, HH:mm");
         document.getElementById("editEntry-description").value= entry.description;
         
-        if(entry.isPhoto) {
-          const preview= document.getElementById("editEntry-preview");
-          preview.src= "https://76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg";
-          preview.style.display= "block";
-        }
+        const preview= document.getElementById("editEntry-preview");
+        preview.src= "https://76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg";
+        preview.style.display= "block";
 
       });
     }
@@ -171,8 +169,8 @@
 
         const action= "editEntry";
         const url= instance.endpoint + "/" + action.toLowerCase();
-        const variables= ["jk", "tagId", "time", "description", "photo"];
-        const required= ["jk", "tagId", "time", "description", "photo"];
+        const variables= ["jk", "tagId", "entryId", "time", "description", "photo"];
+        const required= ["jk", "tagId", "entryId", "time", "description", "photo"];
         const values= { "tagId": getValueFromQueryString("tagId"), "entryId": getValueFromQueryString("entryId"), "photo": res, "time": m.unix() };
         const type= "application/x-www-form-urlencoded";
         post(type, url, action, variables, required, values, function(err, res) {
