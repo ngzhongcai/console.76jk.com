@@ -72,7 +72,7 @@
       const tagId= filename.split(".")[0];
       
       instance.jk= getCookie("jk"); 
-      if(!instance.jk) { console.log("CLAIM.HTML"); /* location.href= "/claiming.html"; */ return; }
+      if(!instance.jk) { console.log("CLAIM.HTML"); location.href= "/claiming.html"; return; }
       document.getElementById("tagId").innerHTML= tagId;
       console.log(tagId);
 
