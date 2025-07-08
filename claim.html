@@ -66,16 +66,18 @@
 
   <script type="text/javascript">
     (function() {
-      /*
       const url= window.location.href;
       const parts= url.split("/");
       const filename= parts[parts.length- 1];
       const tagId= filename.split(".")[0];
+      
       instance.jk= getCookie("jk"); 
       if(!instance.jk) { location.href= "/claiming.html"; return; }
       document.getElementById("tagId").innerHTML= tagId;
       console.log(tagId);
-      
+
+
+      /*      
       const claim= function(callback) {
         const action= "claim";
         const url= instance.endpoint + "/" + action.toLowerCase();
