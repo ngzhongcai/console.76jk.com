@@ -131,6 +131,22 @@
         "parent": document.getElementById("aAdd")
       });
         
+      if(!tag.entries || tag.entries.length=== 0) {
+        renderElement({
+          tag: "p",
+          id: "p-noentries",
+          class: "pure-u-1",
+          innerHTML: "Ready to begin?<br> Tap the camera icon and add your first shot. " + 
+            "<a href='newEntry.html?tagId=" + tag.tagId + "' style='color:#B9561A;'>" +
+              "<i class='fa-solid fa-camera'></i>" + 
+            "</a>",
+          style: "text-align:center;font-size:26px;color:#666666;margin-top:50px;",
+          parent: document.getElementById("tag")
+        });
+
+        callback();
+        return;
+      }
 
       for(var i= tag.entries.length - 1; i>= 0; i--) {
         const entry= tag.entries[i];
