@@ -124,9 +124,8 @@
         preview.style.display = "block";
       } 
 
-      const preloadFileIntoInput= function(tag, entry) {
+      const preloadFileIntoInput= function(tag, entry) { // https://dd025lzh17h0.cloudfront.net
         showImagePreview("https://dd025lzh17h0.cloudfront.net/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg?v=" + Date.now(), "editentry-preview");
-        console.log("https://dd025lzh17h0.cloudfront.net/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg?v=" + Date.now());
         fetch("https://dd025lzh17h0.cloudfront.net/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg?v=" + Date.now())
           .then(function(response) { return response.blob(); })
           .then(function(blob) {
