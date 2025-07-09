@@ -134,18 +134,19 @@
             document.getElementById("editentry-photo").files= dataTransfer.files;
           });
       }
-
-      const extractBase64String= function(callback) {
+      
+      const extractBase64String= async function(callback) {
         const input= document.getElementById("editentry-photo");
         const file= input.files[0];
         if(!file) { callback(); return; }
+        const compressedFile= await imageCompression(file, { maxSizeMB: 0.1, maxWidthOrHeight: 1024, useWebWorker: true });
         const reader= new FileReader();
         reader.onloadend= function() {
           const result= reader.result;
           const base64String= result.split(",")[1];
           callback(null, encodeURIComponent(base64String));
-        };
-        reader.readAsDataURL(file);
+        }
+        reader.readAsDataURL(compressedFile);
       }
 
       const getTag= function(callback) {
