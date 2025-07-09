@@ -125,8 +125,8 @@
       } 
 
       const preloadFileIntoInput= function(tag, entry) {
-        showImagePreview("https://76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg", "editentry-preview");
-        fetch("https://76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg")
+        showImagePreview("https://dd025lzh17h0.cloudfront.net/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg?v=" + Date.now(), "editentry-preview");
+        fetch("https://dd025lzh17h0.cloudfront.net/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg?v=" + Date.now())
           .then(function(response) { return response.blob(); })
           .then(function(blob) {
             var file= new File([blob], entry.entryId + ".jpeg", { type: "image/jpeg" });
