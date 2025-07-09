@@ -128,7 +128,7 @@
         if(tag.entries.length> 0) {
           renderElement({
             "tag": "img",
-            "src": "https://76jk.com/statics/images/" + tag.tagId + "/" + tag.entries[0].entryId + ".jpeg", 
+            "src": "https://76jk.com/statics/images/" + tag.tagId + "/" + tag.entries[tag.entries.length- 1].entryId + ".jpeg", 
             "style": "width:100%;margin-bottom:5px;",
             "parent": document.getElementById("div-" + tag.tagId)
           });
