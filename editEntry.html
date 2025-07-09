@@ -1,231 +1,201 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Digitively">
-  <meta name="description" content="76JK">
-  <title>76JK</title>
-  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.7.2/css/all.css">
-  <link rel="stylesheet" href="https://76jk.com/styles/styles.css">
-  <link rel="icon" type="image/x-icon" href="https://76jk.com/images/favicon.ico">
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jwt-decode@2.2.0/build/jwt-decode.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/async/3.1.0/async.min.js"></script>
-  <script type="text/javascript" src="https://76jk.com/scripts/config.js"></script>
-  <script type="text/javascript" src="https://76jk.com/scripts/base.js"></script>
-</head>
+  <!doctype html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Digitively">
+    <meta name="description" content="76JK">
+    <title>76JK</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.7.2/css/all.css">
+    <link rel="stylesheet" href="https://76jk.com/styles/styles.css">
+    <link rel="icon" type="image/x-icon" href="https://76jk.com/images/favicon.ico">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jwt-decode@2.2.0/build/jwt-decode.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/async/3.1.0/async.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
+    <script type="text/javascript" src="https://76jk.com/scripts/config.js"></script>
+    <script type="text/javascript" src="https://76jk.com/scripts/base.js"></script>
+  </head>
 
-<body>
-  <div class="header">
-    <div class="menu pure-menu pure-menu-horizontal pure-menu-fixed">
-      <ul class="pure-menu-list" style="float:left;">
-        <li class="pure-menu-item"><a class="pure-menu-link" href="/index.html"><span style="color:#B9561A;font-weight:bold;">BONSAI</span> 76JK</a></li>
-      </ul>
+  <body>
+    <div class="header">
+      <div class="menu pure-menu pure-menu-horizontal pure-menu-fixed">
+        <ul class="pure-menu-list" style="float:left;">
+          <li class="pure-menu-item"><a class="pure-menu-link" href="/index.html"><span style="color:#B9561A;font-weight:bold;">BONSAI</span> 76JK</a></li>
+        </ul>
+      </div>
     </div>
-  </div>
 
-  <div class="wrapper">
-    <div class="pure-g content">
-      <form class="pure-form pure-u-1" action="javascript:editentry();">
-        <div class="pure-g">
-          <h1 class="pure-u-2-3" style="margin:50px 0px 30px 0px;">Edit entry</h1>
-          
-          <h1 id="deleteEntry" class="pure-u-1-3" style="margin:50px 0px 30px 0px;cursor:pointer;text-align:right;">
-            <a class="link" onclick="javascript:deleteEntry();">
-              <i class="fas fa-trash-alt"></i> 
-            </a>
-          </h1>
-          <h1 id="deleteEntry-spin" class="pure-u-1-3" style="margin:50px 0px 30px 0px;cursor:pointer;text-align:right;display:none;;">
-            <a class="link" style="cursor:default;"> 
-              <i class="fas fa-spinner fa-spin"></i>
-            </a>
-          </h1>
-
-          <img id="editentry-preview" style="width:100%;display:none;margin-top:10px;"/>
-          <input id="editentry-photo" type="file" accept="image/jpeg, image/png, image/heic" style="display:none;">
-          <label for="editentry-photo" class="pure-button pure-u-1" style="padding-top:10px!important;margin-bottom:20px!important;">Attach Photo</label>
-
-          <p class="pure-u-1">Time, <em id="time"></em></p>
-          <input id="editentry-time" type="text" class="pure-input pure-u-1" style="margin-bottom:20px!important;">
-
-          <p class="pure-u-1">Description</p>
-          <textarea id="editentry-description" class="pure-input pure-u-1" rows="6" style="margin-bottom:20px!important;border:1px #CCCCCC solid;resize:vertical;"></textarea>
-
-          <button id="editentry-btn" type="submit" class="pure-button pure-u-1">Submit</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <div class="footer">
-    <div class="menu pure-menu pure-menu-horizontal">
-      <ul class="pure-menu-list" style="float:left;">
-        <li class="pure-menu-item"><a id="version" class="pure-menu-link"></a></li>
-      </ul>
-      <ul class="pure-menu-list" style="float:right;">
-        <li class="pure-menu-item"><a href="mailto:hello@76jk.com" class="pure-menu-link">hello@76jk.com</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <script type="text/javascript">
-    const loadScript= function() {
-      instance.jk= getCookie("jk"); 
-      if(!instance.jk) { location.href= "/index.html"; return; }
-      instance.profile= jwt_decode(instance.jk); 
-
-      const input= document.getElementById("editentry-photo");
-      input.addEventListener("change", function(event) {
-        const file= event.target.files[0];
-        if(!file) { return; }
-        const MAX_SIZE_MB= 10;
-        const allowedTypes= ["image/jpeg", "image/png", "image/heic"];
-        
-        if(!allowedTypes.includes(file.type)) {
-          alert("Only JPEG, PNG or HEIC images are allowed.");
-          input.value= "";
-          return;
-        }
-        
-        if(file.size > MAX_SIZE_MB * 1024 * 1024) {
-          alert("File is too large. Please choose a file under " + MAX_SIZE_MB + "MB.");
-          input.value= "";
-          return;
-        }
-        
-        if(file.type=== "image/heic") {
-          heic2any({
-            blob: file,
-            toType: "image/jpeg",
-            quality: 0.8
-          })
-          .then(function(convertedBlob) {
-            const jpegFile = new File([convertedBlob], file.name.replace(/\.heic$/i, ".jpg"), {
-              type: "image/jpeg"
-            });
+    <div class="wrapper">
+      <div class="pure-g content">
+        <form class="pure-form pure-u-1" action="javascript:editentry();">
+          <div class="pure-g">
+            <h1 class="pure-u-2-3" style="margin:50px 0px 30px 0px;">Edit entry</h1>
             
-            const dataTransfer= new DataTransfer();
-            dataTransfer.items.add(jpegFile);
-            input.files= dataTransfer.files;
+            <h1 id="deleteEntry" class="pure-u-1-3" style="margin:50px 0px 30px 0px;cursor:pointer;text-align:right;">
+              <a class="link" onclick="javascript:deleteEntry();">
+                <i class="fas fa-trash-alt"></i> 
+              </a>
+            </h1>
+            <h1 id="deleteEntry-spin" class="pure-u-1-3" style="margin:50px 0px 30px 0px;cursor:pointer;text-align:right;display:none;;">
+              <a class="link" style="cursor:default;"> 
+                <i class="fas fa-spinner fa-spin"></i>
+              </a>
+            </h1>
+
+            <img id="editentry-preview" style="width:100%;display:none;margin-top:10px;"/>
+            <input id="editentry-photo" type="file" accept="image/jpeg, image/png, image/heic" style="display:none;">
+            <label for="editentry-photo" class="pure-button pure-u-1" style="padding-top:10px!important;margin-bottom:20px!important;">Attach Photo</label>
+
+            <p class="pure-u-1">Time, <em id="time"></em></p>
+            <input id="editentry-time" type="text" class="pure-input pure-u-1" style="margin-bottom:20px!important;">
+
+            <p class="pure-u-1">Description</p>
+            <textarea id="editentry-description" class="pure-input pure-u-1" rows="6" style="margin-bottom:20px!important;border:1px #CCCCCC solid;resize:vertical;"></textarea>
+
+            <button id="editentry-btn" type="submit" class="pure-button pure-u-1">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="menu pure-menu pure-menu-horizontal">
+        <ul class="pure-menu-list" style="float:left;">
+          <li class="pure-menu-item"><a id="version" class="pure-menu-link"></a></li>
+        </ul>
+        <ul class="pure-menu-list" style="float:right;">
+          <li class="pure-menu-item"><a href="mailto:hello@76jk.com" class="pure-menu-link">hello@76jk.com</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      const loadScript= function() {
+        instance.jk= getCookie("jk"); 
+        if(!instance.jk) { location.href= "/index.html"; return; }
+        instance.profile= jwt_decode(instance.jk); 
+        
+        document.getElementById("editentry-photo").addEventListener("change", function(event) {
+          handleFileChange(event, "editentry-preview");
+        });
+
+        getTag(function(err, res) {
+          if(err) { alert(err); return; }
+          const tag= res; 
+          const entry= tag.entries.find(function(e) { return e.entryId=== getValueFromQueryString("entryId"); });
+          document.getElementById("time").innerHTML= "ie, " + moment(entry.firstCreated).local().format("D MMM YYYY, HH:mm");
+          document.getElementById("editentry-time").value= moment(entry.firstCreated).local().format("D MMM YYYY, HH:mm");
+          document.getElementById("editentry-description").value= entry.description;
           
-            const preview= document.getElementById("editentry-preview");
-            preview.src= URL.createObjectURL(jpegFile);
-            preview.style.display = "block";
-          })
-          .catch(function(err) {
-            alert("Failed to convert HEIC image. Please try another file.");
-            console.error("HEIC conversion error:", err);
-            input.value= "";
-          });
-          return;
-        }
+          preloadFileIntoInput(tag, entry);
+        });
+      }
+      
+      async function handleFileChange(event, previewId) {
+        const input= event.target; const file= input.files[0];
+        if(!file) { return;}
+        if(!isAllowedFileType(file)) { alert("Only JPEG, PNG or HEIC images are allowed."); input.value= ""; return; }
+        var finalFile= file;
+        if(file.type=== "image/heic") { finalFile= await convertHeicToJpeg(file); setInputFile(input, finalFile); }
+        showImagePreview(finalFile, previewId);
+      }
+      
+      const isAllowedFileType= function(file) { 
+        return ["image/jpeg", "image/png", "image/heic"].includes(file.type);
+      }
 
-        // Direct preview for JPEG or PNG
-        const preview= document.getElementById("editentry-preview");
-        preview.src= URL.createObjectURL(file);
-        preview.style.display= "block";
-      });
+      const convertHeicToJpeg= function(file) {
+        return heic2any({ blob: file, toType: "image/jpeg", quality: 0.8 }).then(function(convertedBlob) { return new File([convertedBlob], file.name.replace(/\.heic$/i, ".jpg"), { type: "image/jpeg" }); });
+      }
 
-      getTag(function(err, res) {
-        if(err) { alert(err); return; }
-        const tag= res; 
-        const entry= tag.entries.find(function(e) { return e.entryId=== getValueFromQueryString("entryId"); }); 
-        
-        document.getElementById("time").innerHTML= "ie, " + moment(entry.firstCreated).local().format("D MMM YYYY, HH:mm");
-        document.getElementById("editentry-time").value= moment(entry.firstCreated).local().format("D MMM YYYY, HH:mm");
-        document.getElementById("editentry-description").value= entry.description;
-        
-        const preview= document.getElementById("editentry-preview");
-        const photoUrl= "https://76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg";
-        preview.src= photoUrl;
-        preview.style.display= "block";
-        
-        fetch(photoUrl)
-          .then(function(response) {
-            return response.blob();
-          })
+      const setInputFile= function(input, file) {
+        const dataTransfer= new DataTransfer();
+        dataTransfer.items.add(file);
+        input.files= dataTransfer.files;
+      }
+
+      const showImagePreview= function(fileOrUrl, previewId) {
+        const preview= document.getElementById(previewId);
+        preview.src= fileOrUrl instanceof File || fileOrUrl instanceof Blob ? URL.createObjectURL(fileOrUrl) : fileOrUrl; 
+        preview.style.display = "block";
+      } 
+
+      const preloadFileIntoInput= function(tag, entry) {
+        showImagePreview("https://76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg", "editentry-preview");
+        fetch("https://76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg")
+          .then(function(response) { return response.blob(); })
           .then(function(blob) {
             var file= new File([blob], entry.entryId + ".jpeg", { type: "image/jpeg" });
-            var dataTransfer= new DataTransfer();
-            dataTransfer.items.add(file);
-            
-            var input= document.getElementById("editentry-photo");
-            input.files= dataTransfer.files;
-          })
-          .catch(function(err) {
-            console.error("Failed to preload photo into input:", err);
+            var dataTransfer= new DataTransfer(); dataTransfer.items.add(file);
+            document.getElementById("editentry-photo").files= dataTransfer.files;
           });
+      }
 
-      });
-    }
+      const extractBase64String= function(callback) {
+        const input= document.getElementById("editentry-photo");
+        const file= input.files[0];
+        if(!file) { callback(); return; }
+        const reader= new FileReader();
+        reader.onloadend= function() {
+          const result= reader.result;
+          const base64String= result.split(",")[1];
+          callback(null, encodeURIComponent(base64String));
+        };
+        reader.readAsDataURL(file);
+      }
 
-    const getTag= function(callback) {
-      const action= "getTag";
-      const url= instance.endpoint + "/" + action.toLowerCase();
-      const variables= ["jk", "tagId"];
-      const required= ["jk", "tagId"];
-      const values= { "tagId": getValueFromQueryString("tagId") };
-      const type= "application/x-www-form-urlencoded";
-      post(type, url, action, variables, required, values, function(err, res) {
-        err ? callback(err) : callback(null, res);
-      });
-    }
-    
-    const editentry= function(callback) {
-      extractBase64String(function(err, res) {
-        if(err) { alert(err); return; }
-        const time= document.getElementById("editentry-time").value;
-        const m= moment(time, "D MMM YYYY, HH:mm", true);
-        if(!m.isValid()) { alert("Invalid date format"); return; }  
-
-        const action= "editentry";
+      const getTag= function(callback) {
+        const action= "getTag";
         const url= instance.endpoint + "/" + action.toLowerCase();
-        const variables= ["jk", "tagId", "entryId", "time", "description", "photo"];
-        const required= ["jk", "tagId", "entryId", "time", "description", "photo"];
-        const values= { "tagId": getValueFromQueryString("tagId"), "entryId": getValueFromQueryString("entryId"), "photo": res, "time": m.unix() };
+        const variables= ["jk", "tagId"];
+        const required= ["jk", "tagId"];
+        const values= { "tagId": getValueFromQueryString("tagId") };
         const type= "application/x-www-form-urlencoded";
         post(type, url, action, variables, required, values, function(err, res) {
-          if(err) { alert(err); return; }
-          location.href= "/tag.html?tagId=" + res.tagId;
+          err ? callback(err) : callback(null, res);
         });
-      });
-    }
-
-    const deleteEntry= function(tagId, callback) {
-      document.getElementById("deleteEntry").style.display= "none";
-      document.getElementById("deleteEntry-spin").style.display= "block";
+      }
       
-      const action= "deleteEntry";
-      const url= instance.endpoint + "/" + action.toLowerCase();
-      const variables= ["jk", "tagId", "entryId"];
-      const required= ["jk", "tagId", "entryId"];
-      const values= { "tagId": getValueFromQueryString("tagId"), "entryId": getValueFromQueryString("entryId") };
-      const type= "application/x-www-form-urlencoded";
-      post(type, url, action, variables, required, values, function(err, res) {
-        if(err) { alert(err); return; } 
-        location.href= "/tag.html?tagId=" + getValueFromQueryString("tagId");
-      });
-    }
-    
-    const extractBase64String= function(callback) {
-      const input= document.getElementById("editentry-photo");
-      const file= input.files[0];
-      if(!file) { callback(); return; }
-      const reader= new FileReader();
-      reader.onloadend= function() {
-        const result= reader.result;
-        const base64String= result.split(",")[1];
-        callback(null, encodeURIComponent(base64String));
-      };
-      reader.readAsDataURL(file);
-    }
+      const editentry= function(callback) {
+        extractBase64String(function(err, res) {
+          if(err) { alert(err); return; }
+          const time= document.getElementById("editentry-time").value;
+          const m= moment(time, "D MMM YYYY, HH:mm", true);
+          if(!m.isValid()) { alert("Invalid date format"); return; }  
 
+          const action= "editentry";
+          const url= instance.endpoint + "/" + action.toLowerCase();
+          const variables= ["jk", "tagId", "entryId", "time", "description", "photo"];
+          const required= ["jk", "tagId", "entryId", "time", "description", "photo"];
+          const values= { "tagId": getValueFromQueryString("tagId"), "entryId": getValueFromQueryString("entryId"), "photo": res, "time": m.unix() };
+          const type= "application/x-www-form-urlencoded";
+          post(type, url, action, variables, required, values, function(err, res) {
+            if(err) { alert(err); return; }
+            location.href= "/tag.html?tagId=" + res.tagId;
+          });
+        });
+      }
 
-  </script>
+      const deleteEntry= function(tagId, callback) {
+        document.getElementById("deleteEntry").style.display= "none";
+        document.getElementById("deleteEntry-spin").style.display= "block";
+        
+        const action= "deleteEntry";
+        const url= instance.endpoint + "/" + action.toLowerCase();
+        const variables= ["jk", "tagId", "entryId"];
+        const required= ["jk", "tagId", "entryId"];
+        const values= { "tagId": getValueFromQueryString("tagId"), "entryId": getValueFromQueryString("entryId") };
+        const type= "application/x-www-form-urlencoded";
+        post(type, url, action, variables, required, values, function(err, res) {
+          if(err) { alert(err); return; } 
+          location.href= "/tag.html?tagId=" + getValueFromQueryString("tagId");
+        });
+      }
+    </script>
 
-</body>
-</html>
+  </body>
+  </html>
