@@ -99,7 +99,7 @@
         "class": "pure-u-2-3",
         "innerHTML": tag.name_ + 
           "<a data-admin='true' class='link' style='cursor:pointer;margin-left:15px;' " + 
-            "href='javascript:location.href=\"\/editName.html?tagId=" + tag.tagId + "\";'>" + 
+            "href='javascript:location.href=\"\/editname.html?tagId=" + tag.tagId + "\";'>" + 
             "<i class='fa-solid fa-pen-to-square'></i>" +
           "</a>",
         "style": "margin:50px 0px 30px 0px;",
@@ -120,7 +120,7 @@
         "class": "link",
         "data-admin": "true",
         "style": "cursor:pointer;margin-right:10px;",
-        "href": "newEntry.html?tagId=" + tag.tagId,
+        "href": "newentry.html?tagId=" + tag.tagId,
         "parent": document.getElementById("h1Actions")
       });
         
@@ -137,7 +137,7 @@
           id: "p-noentries",
           class: "pure-u-1",
           innerHTML: "Let's keep going! <br> Tap the camera icon and add your first shot. " + 
-            "<a href='newEntry.html?tagId=" + tag.tagId + "' style='color:#B9561A;'>" +
+            "<a href='newentry.html?tagId=" + tag.tagId + "' style='color:#B9561A;'>" +
               "<i class='fa-solid fa-camera'></i>" + 
             "</a>",
           style: "text-align:center;font-size:26px;color:#666666;margin-top:50px;",
@@ -164,7 +164,7 @@
           "class": "pure-u-1",
           "innerHTML": entry.description + 
           "<a data-admin='true' class='link' style='cursor:pointer;float:right;' " +
-            "href=\"\/editEntry.html?entryId=" + entry.entryId + "&tagId=" + tag.tagId + "\";'>" + 
+            "href=\"\/editentry.html?entryId=" + entry.entryId + "&tagId=" + tag.tagId + "\";'>" + 
             "<i class='fa-solid fa-pen-to-square'></i>" + 
           "</a>",
           "style": "font-size:26px;margin-bottom:5px;",

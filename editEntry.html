@@ -30,7 +30,7 @@
 
   <div class="wrapper">
     <div class="pure-g content">
-      <form class="pure-form pure-u-1" action="javascript:editEntry();">
+      <form class="pure-form pure-u-1" action="javascript:editentry();">
         <div class="pure-g">
           <h1 class="pure-u-2-3" style="margin:50px 0px 30px 0px;">Edit entry</h1>
           
@@ -45,17 +45,17 @@
             </a>
           </h1>
 
-          <img id="editEntry-preview" style="width:100%;display:none;margin-top:10px;"/>
-          <input id="editEntry-photo" type="file" accept="image/jpeg, image/png, image/heic" style="display:none;">
-          <label for="editEntry-photo" class="pure-button pure-u-1" style="padding-top:10px!important;margin-bottom:20px!important;">Attach Photo</label>
+          <img id="editentry-preview" style="width:100%;display:none;margin-top:10px;"/>
+          <input id="editentry-photo" type="file" accept="image/jpeg, image/png, image/heic" style="display:none;">
+          <label for="editentry-photo" class="pure-button pure-u-1" style="padding-top:10px!important;margin-bottom:20px!important;">Attach Photo</label>
 
           <p class="pure-u-1">Time, <em id="time"></em></p>
-          <input id="editEntry-time" type="text" class="pure-input pure-u-1" style="margin-bottom:20px!important;">
+          <input id="editentry-time" type="text" class="pure-input pure-u-1" style="margin-bottom:20px!important;">
 
           <p class="pure-u-1">Description</p>
-          <textarea id="editEntry-description" class="pure-input pure-u-1" rows="6" style="margin-bottom:20px!important;border:1px #CCCCCC solid;resize:vertical;"></textarea>
+          <textarea id="editentry-description" class="pure-input pure-u-1" rows="6" style="margin-bottom:20px!important;border:1px #CCCCCC solid;resize:vertical;"></textarea>
 
-          <button id="editEntry-btn" type="submit" class="pure-button pure-u-1">Submit</button>
+          <button id="editentry-btn" type="submit" class="pure-button pure-u-1">Submit</button>
         </div>
       </form>
     </div>
@@ -78,7 +78,7 @@
       if(!instance.jk) { location.href= "/index.html"; return; }
       instance.profile= jwt_decode(instance.jk); 
 
-      const input= document.getElementById("editEntry-photo");
+      const input= document.getElementById("editentry-photo");
       input.addEventListener("change", function(event) {
         const file= event.target.files[0];
         if(!file) { return; }
@@ -112,7 +112,7 @@
             dataTransfer.items.add(jpegFile);
             input.files= dataTransfer.files;
           
-            const preview= document.getElementById("editEntry-preview");
+            const preview= document.getElementById("editentry-preview");
             preview.src= URL.createObjectURL(jpegFile);
             preview.style.display = "block";
           })
@@ -125,7 +125,7 @@
         }
 
         // Direct preview for JPEG or PNG
-        const preview= document.getElementById("editEntry-preview");
+        const preview= document.getElementById("editentry-preview");
         preview.src= URL.createObjectURL(file);
         preview.style.display= "block";
       });
@@ -136,10 +136,10 @@
         const entry= tag.entries.find(function(e) { return e.entryId=== getValueFromQueryString("entryId"); }); 
         
         document.getElementById("time").innerHTML= "ie, " + moment(entry.firstCreated).local().format("D MMM YYYY, HH:mm");
-        document.getElementById("editEntry-time").value= moment(entry.firstCreated).local().format("D MMM YYYY, HH:mm");
-        document.getElementById("editEntry-description").value= entry.description;
+        document.getElementById("editentry-time").value= moment(entry.firstCreated).local().format("D MMM YYYY, HH:mm");
+        document.getElementById("editentry-description").value= entry.description;
         
-        const preview= document.getElementById("editEntry-preview");
+        const preview= document.getElementById("editentry-preview");
         const photoUrl= "https://76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg";
         preview.src= photoUrl;
         preview.style.display= "block";
@@ -153,7 +153,7 @@
             var dataTransfer= new DataTransfer();
             dataTransfer.items.add(file);
             
-            var input= document.getElementById("editEntry-photo");
+            var input= document.getElementById("editentry-photo");
             input.files= dataTransfer.files;
           })
           .catch(function(err) {
@@ -175,14 +175,14 @@
       });
     }
     
-    const editEntry= function(callback) {
+    const editentry= function(callback) {
       extractBase64String(function(err, res) {
         if(err) { alert(err); return; }
-        const time= document.getElementById("editEntry-time").value;
+        const time= document.getElementById("editentry-time").value;
         const m= moment(time, "D MMM YYYY, HH:mm", true);
         if(!m.isValid()) { alert("Invalid date format"); return; }  
 
-        const action= "editEntry";
+        const action= "editentry";
         const url= instance.endpoint + "/" + action.toLowerCase();
         const variables= ["jk", "tagId", "entryId", "time", "description", "photo"];
         const required= ["jk", "tagId", "entryId", "time", "description", "photo"];
@@ -212,7 +212,7 @@
     }
     
     const extractBase64String= function(callback) {
-      const input= document.getElementById("editEntry-photo");
+      const input= document.getElementById("editentry-photo");
       const file= input.files[0];
       if(!file) { callback(); return; }
       const reader= new FileReader();
