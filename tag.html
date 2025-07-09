@@ -64,13 +64,13 @@
     const loadScript= function() {
       const tagId= getValueFromQueryString("tagId");
       instance.jk= getCookie("jk");
-      if(!instance.jk) { console.log("TAG.HTML"); location.href= "/statics/" + tagId + ".html?v=" + Date.now(); return; }
+      if(!instance.jk) { console.log("TAG.HTML"); location.href= "/statics/" + tagId + ".html"; return; }
       if(!tagId) { return; }
       instance.profile= jwt_decode(instance.jk); 
 
       getTag(tagId, function(err, res) {
         if(err) { alert(err); return; } 
-        if(!res) { location.href= "https://dd025lzh17h0.cloudfront.net/statics/" + tagId + ".html?v=" + Date.now(); return; }
+        if(!res) { location.href= "https://dd025lzh17h0.cloudfront.net/statics/" + tagId + ".html"; return; }
 
         renderTag(res, function(err, res) {
           if(err) { alert(err); return; }
