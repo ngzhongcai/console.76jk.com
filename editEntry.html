@@ -125,8 +125,8 @@
       } 
 
       const preloadFileIntoInput= function(tag, entry) { // https://dd025lzh17h0.cloudfront.net
-        showImagePreview("https://dd025lzh17h0.cloudfront.net/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg?v=" + Date.now(), "editentry-preview");
-        fetch("https://dd025lzh17h0.cloudfront.net/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg?v=" + Date.now())
+        showImagePreview("https://dd025lzh17h0.cloudfront.net/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg", "editentry-preview");
+        fetch("https://dd025lzh17h0.cloudfront.net/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg")
           .then(function(response) { return response.blob(); })
           .then(function(blob) {
             var file= new File([blob], entry.entryId + ".jpeg", { type: "image/jpeg" });
@@ -176,7 +176,10 @@
           const type= "application/x-www-form-urlencoded";
           post(type, url, action, variables, required, values, function(err, res) {
             if(err) { alert(err); return; }
-            location.href= "/tag.html?tagId=" + res.tagId;
+            startSpin(action + "-btn");
+            setTimeout(function() {
+              location.href= "/tag.html?tagId=" + res.tagId;
+            }, 5000);
           });
         });
       }
