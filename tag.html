@@ -42,8 +42,8 @@
   </div>
 
   <div class="wrapper">
-    <div id="tag" class="pure-g content">
-      <p class="pure-u-1" style="font-size:26px;font-style:italic;margin-bottom:5px;margin-top:50px;">
+    <div id="tag" class="pure-g content" style="padding:0px 22px!important;">
+      <p class="pure-u-1" style="font-size:26px;font-style:italic;margin:75px 0px 5px 0px!important;">
         <i class="fas fa-spinner fa-spin"></i>
       </p>
     </div>
@@ -71,7 +71,6 @@
       getTag(tagId, function(err, res) {
         if(err) { alert(err); return; } 
         if(!res) { location.href= "https://76jk.com/statics/" + tagId + ".html"; return; }
-
         renderTag(res, function(err, res) {
           if(err) { alert(err); return; }
           console.log("OK");
@@ -97,12 +96,12 @@
         "tag": "h1",
         "id": "h1Name",
         "class": "pure-u-2-3",
+        "style": "margin:75px 0px 30px 0px!important;",
         "innerHTML": tag.name_ + 
-          "<a data-admin='true' class='link' style='cursor:pointer;margin-left:15px;' " + 
-            "href='javascript:location.href=\"\/editname.html?tagId=" + tag.tagId + "\";'>" + 
+          "<a data-admin='true' class='link' style='font-size:26px;cursor:pointer;margin-left:15px;' " + 
+            "href='\/editname.html?tagId=" + tag.tagId + "'>" + 
             "<i class='fa-solid fa-pen-to-square'></i>" +
           "</a>",
-        "style": "margin:50px 0px 30px 0px;",
         "parent": document.getElementById("tag")
       });
         
@@ -110,7 +109,7 @@
         "tag": "h1",
         "id": "h1Actions",
         "class": "pure-u-1-3",
-        "style": "text-align:right;margin:50px 0px 30px 0px;",
+        "style": "text-align:right;margin:75px 0px 30px 0px!important;",
         "parent": document.getElementById("tag")
       });
         
@@ -119,7 +118,7 @@
         "id": "aAdd",
         "class": "link",
         "data-admin": "true",
-        "style": "cursor:pointer;margin-right:10px;",
+        "style": "font-size:26px;cursor:pointer;margin-right:10px;",
         "href": "newentry.html?tagId=" + tag.tagId,
         "parent": document.getElementById("h1Actions")
       });
