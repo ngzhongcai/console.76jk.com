@@ -124,8 +124,7 @@
         preview.style.display = "block";
       } 
 
-      // https://s3.ap-southeast-1.amazonaws.com/console.76jk.com/statics/images/b56938ef-6d4f-4209-8e77-efce4ecacaea/bdc71e1a-b9c3-49b3-8a18-629c3a0c6592.jpeg
-      const preloadFileIntoInput= function(tag, entry) { // https://dd025lzh17h0.cloudfront.net
+      const preloadFileIntoInput= function(tag, entry) {
         showImagePreview("https://s3.ap-southeast-1.amazonaws.com/console.76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg", "editentry-preview");
         fetch("https://s3.ap-southeast-1.amazonaws.com/console.76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg")
           .then(function(response) { return response.blob(); })
@@ -178,9 +177,7 @@
           post(type, url, action, variables, required, values, function(err, res) {
             if(err) { alert(err); return; }
             startSpin(action + "-btn");
-            setTimeout(function() {
-              location.href= "/tag.html?tagId=" + res.tagId;
-            }, 5000);
+            location.href= "/tag.html?tagId=" + res.tagId;
           });
         });
       }
