@@ -40,14 +40,14 @@
     <div class="pure-g content"> 
       <form class="pure-form pure-u-1" action="javascript:claim();">
         <div class="pure-g">
-          <h1 class="pure-u-1" style="margin-top:50px;text-align:center;">Start your Bonsai Journal</h1>
-          <p class="pure-u-1" style="margin-bottom:50px;text-align:center;">Choose a name for your bonsai — like <em>Shiro’s Twin Trunk Pine</em> or <em>Morning Wind Maple</em>. Don’t worry, you can rename it later.</p>
+          <h1 class="pure-u-1" style="margin:100px 22px 0px 22px!important;text-align:center;">Start your Bonsai Journal</h1>
+          <p class="pure-u-1" style="margin:0px 22px 0px 22px!important;text-align:center;">Choose a name for your bonsai — like <em>Shiro’s Twin Trunk Pine</em> or <em>Morning Wind Maple</em>. Don’t worry, you can rename it later.</p>
 
-          <p class="pure-u-1">Tag ID</p>
-          <p id="tagId" class="pure-u-1" style="font-size:26px;margin-top:10px!important;margin-bottom:20px!important;"></p>
-          <p class="pure-u-1">Name</p>
-          <input id="claim-name" type="text" class="pure-input pure-u-1" style="margin-bottom:20px!important;">
-          <button id="claim-btn" type="submit" class="pure-button pure-u-1">Submit</button>
+          <p class="pure-u-1" style="margin:50px 22px 0px 22px!important;">Tag ID</p>
+          <p id="tagId" class="pure-u-1" style="font-size:26px;margin:10px 22px 20px 22px!important;"></p>
+          <p class="pure-u-1" style="margin:0px 22px 0px 22px!important;">Name</p>
+          <input id="claim-name" type="text" class="pure-input pure-u-1" style="margin:0px 22px 20px 22px!important;">
+          <button id="claim-btn" type="submit" class="pure-button pure-u-1" style="margin:0px 22px 0px 22px!important;">Submit</button>
         </div>
       </form>
     </div>
@@ -71,7 +71,7 @@
       const filename= parts[parts.length- 1];
       const tagId= filename.split(".")[0]; 
       
-      instance.jk= getCookie("jk"); 
+      instance.jk= getCookie("jk");
       if(!instance.jk) { console.log("CLAIM.HTML"); location.href= "/claiming.html"; return; }
       document.getElementById("tagId").innerHTML= tagId;
     }
