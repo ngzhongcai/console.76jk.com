@@ -123,19 +123,17 @@ textarea.pure-input {
 }
 
 /* CONTENT */
-.wrapper {
-  margin-top: 34px;
+.wrapper { 
+  margin: 0px;
   min-height: 100vh; 
   background: transparent;
   overflow: hidden;
   border-radius: 16px;
-  padding: 40px 24px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.04); 
-  margin-left: auto;
-  margin-right: auto;
+  padding: 0px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.04);  
 }
 .content {
-  padding: 20px;
+  padding: 0px;
 }
 .narrow-content {
   max-width: 800px;
