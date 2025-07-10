@@ -26,6 +26,7 @@ a.link {
   margin-top: 12px;
 }
 a.link:hover {
+  color: #6B7D5F;
   text-decoration: underline;
   text-decoration-style: dotted;
 }
