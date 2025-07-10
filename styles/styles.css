@@ -109,7 +109,7 @@ textarea.pure-input {
 /* CONTENT */
 .wrapper {
   margin-top: 34px;
-  min-height: 105%;
+  min-height: 100vh;
   background: #bbbbbb url(../images/background.jpg);
   border-radius: 16px;
   padding: 40px 24px;
