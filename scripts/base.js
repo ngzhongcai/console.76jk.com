@@ -17,7 +17,7 @@ const post= function(type, url, action, variables, required, values, callback) {
     if(err) { stopSpin(action + "-btn"); callback(err); return; }
     execute(type, url, res, function(err, res) {
       if(err) { stopSpin(action + "-btn"); callback(err); return; }
-      stopSpin(action + "-btn");
+      stopSpin(action + "-btn"); 
       callback(null, res);
     });
   });

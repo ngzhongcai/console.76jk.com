@@ -52,7 +52,7 @@ input.pure-input {
 textarea.pure-input {
   padding: 10px 10px!important;
   margin: 0px 0px 5px 0px !important;
-  border-radius: 0px !important;
+  border-radius: 12px !important;
   box-shadow: none !important;
   line-height: 28px;
   font-size: 26px;
