@@ -17,11 +17,7 @@ button {
   position: relative;
   padding: 10px 20px 10px 34px;
 }
-a.link {
-  /*
-  color: #B9561A;
-  text-decoration: none;
-  */
+a.link { 
   color: #B9561A;
   text-decoration: none;
   font-size: 14px;
@@ -63,23 +59,10 @@ textarea.pure-input {
   margin-top: 10px;
   margin-bottom: 10px;
   transition: background-color 0.2s ease-in-out;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  /*
-  color: #FFFFFF;
-  background: #000000;
-  margin: 0px 0px 5px 0px !important;
-  padding: 0px!important;
-  border-radius: 0px;
-  line-height: 28px;
-  font-size: 26px;
-  height: 50px;
-  */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
 }
 .pure-button:hover {
-  background-color: #964717;
-  /*
-  background: #222222;
-  */
+  background-color: #964717; 
 }
 .pointer {
   cursor: pointer;
@@ -120,15 +103,10 @@ textarea.pure-input {
 }
 
 /* CONTENT */
-.wrapper {
-  /*
+.wrapper { 
   margin-top: 34px;
   min-height: 105%;
-  */
-  margin-top: 34px;
-  min-height: 105%;
-  background-color: white;
-  /* max-width: 480px; */
+  background-color: white; 
   margin-left: auto;
   margin-right: auto;
   box-shadow: 0 4px 20px rgba(0,0,0,0.05);
