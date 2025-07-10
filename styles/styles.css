@@ -106,6 +106,9 @@ textarea.pure-input {
 .pure-menu-link {
   font-size: 22px; /* 23px */
 }
+.pure-menu-link:hover {
+  color: #8C5E3C!important;
+}
 .pure-menu-list {
   height: 50px;
 }
