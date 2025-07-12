@@ -14,7 +14,8 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/async/3.1.0/async.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/async/3.1.0/async.min.js"></script> 
+  <script type="text/javascript" src="https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js"></script>
   <script data-admin="true" type="text/javascript" src="https://76jk.com/scripts/config.js"></script>
   <script data-admin="true" type="text/javascript" src="https://76jk.com/scripts/base.js"></script>
 </head>
@@ -169,13 +170,31 @@
           "</a>",
           "parent": document.getElementById("tag")
         });
-        
+
+        renderElement({
+          "tag": "div", 
+          "class": "pure-u-1 pure-g",
+          "style": "overflow:hidden;margin:0px 0px 0px 0px!important;",
+          "id": "div-" + entry.entryId,
+          "parent": document.getElementById("tag")
+        }); 
+
         renderElement({
           "tag": "img",
           "src": "https://s3.ap-southeast-1.amazonaws.com/console.76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg", 
-          "style": "width:100%;margin:0px 0px 60px 0px!important;border-radius:12px;",
-          "parent": document.getElementById("tag")
+          "style": "width:100%;margin:0px 0px 60px 0px!important;border-radius:12px;touch-action:none;",
+          "id": "img-" + entry.entryId,
+          "parent": document.getElementById("div-" + entry.entryId)
         });
+        
+        var img= document.getElementById("img-" + entry.entryId);
+        var pz= panzoom(img, { 
+          startScale: 1,
+          minScale: 1,
+          maxScale: 5,
+          contain: 'inside'
+         });
+        img.parentElement.addEventListener("wheel", pz.zoomWithWheel);
 
         if(i=== 0) { callback(); }
       }
