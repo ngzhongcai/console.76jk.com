@@ -154,14 +154,14 @@
           "tag": "p",
           "class": "pure-u-1",
           "innerHTML": moment(entry.firstCreated).local().format("D MMM YYYY, HH:mm"),
-          "style": "font-size:16px;margin-bottom:5px;font-style:italic;",
+          "style": "font-size:16px;margin0px 0px 5px 0px!important;font-style:italic;",
           "parent": document.getElementById("tag")
         });
         
         renderElement({
           "tag": "p",
           "class": "pure-u-1",
-          "style": "font-size:26px;margin-bottom:5px;font-weight:100;",
+          "style": "font-size:26px;margin:0px 0px 5px 0px!important;font-weight:100;",
           "innerHTML": entry.description + 
           "<a data-admin='true' class='link' style='cursor:pointer;float:right;font-size:26px;margin:0px!important;' " +
             "href=\"\/editentry.html?entryId=" + entry.entryId + "&tagId=" + tag.tagId + "\";'>" + 
