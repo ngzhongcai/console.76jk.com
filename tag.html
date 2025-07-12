@@ -192,7 +192,8 @@
           startScale: 1,
           minScale: 1,
           maxScale: 5,
-          contain: 'inside'
+          contain: 'outside',
+          panOnlyWhenZoomed: true
          });
         img.parentElement.addEventListener("wheel", pz.zoomWithWheel);
 
