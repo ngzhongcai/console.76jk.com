@@ -14,8 +14,8 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/async/3.1.0/async.min.js"></script> 
-  <script type="text/javascript" src="https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/async/3.1.0/async.min.js"></script>   
+  <script type="text/javascript" src="https://unpkg.com/@panzoom/panzoom@4.6.0/dist/panzoom.min.js"></script>
   <script data-admin="true" type="text/javascript" src="https://76jk.com/scripts/config.js"></script>
   <script data-admin="true" type="text/javascript" src="https://76jk.com/scripts/base.js"></script>
 </head>
@@ -188,14 +188,31 @@
         });
         
         var img= document.getElementById("img-" + entry.entryId);
-        var pz= panzoom(img, { 
-          startScale: 1,
-          minScale: 1,
-          maxScale: 5,
-          contain: 'outside',
-          panOnlyWhenZoomed: true
-         });
-        img.parentElement.addEventListener("wheel", pz.zoomWithWheel);
+        const pz = Panzoom(img, {
+  maxZoom: 5,
+  minZoom: 1,
+  bounds: true,
+  boundsPadding: 0.1,
+  zoomDoubleClickSpeed: 1
+});
+
+// ✅ Allow vertical scroll gestures to pass through
+img.style.touchAction = 'pan-y';
+img.style.userSelect = 'none';
+img.draggable = false;
+
+// ✅ Only allow panning if zoomed in
+img.addEventListener('touchstart', function (e) {
+  const transform = img.style.transform;
+  const match = transform.match(/scale\(([^)]+)\)/);
+  const scale = match ? parseFloat(match[1]) : 1;
+
+  if (scale <= 1.01) {
+    pz.pause();  // disable pan so page scrolls
+  } else {
+    pz.resume(); // enable pan if zoomed in
+  }
+}, { passive: true });
 
         if(i=== 0) { callback(); }
       }
