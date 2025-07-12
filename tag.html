@@ -139,7 +139,7 @@
             "<a href='newentry.html?tagId=" + tag.tagId + "' style='color:#B9561A;'>" +
               "<i class='fa-solid fa-camera'></i>" + 
             "</a>",
-          style: "text-align:center;font-size:26px;color:#666666;margin-top:50px;",
+          style: "text-align:center;font-size:26px;color:#666666;margin:50px 0px 0px 0px!important;",
           parent: document.getElementById("tag")
         });
 
@@ -163,7 +163,7 @@
           "class": "pure-u-1",
           "style": "font-size:26px;margin:0px 0px 5px 0px!important;font-weight:100;",
           "innerHTML": entry.description + 
-          "<a data-admin='true' class='link' style='cursor:pointer;float:right;font-size:26px;margin:0px!important;' " +
+          "<a data-admin='true' class='link' style='cursor:pointer;float:right;font-size:26px;margin:0px 0px 0px 0px!important;' " +
             "href=\"\/editentry.html?entryId=" + entry.entryId + "&tagId=" + tag.tagId + "\";'>" + 
             "<i class='fa-solid fa-pen-to-square'></i>" + 
           "</a>",
@@ -173,7 +173,7 @@
         renderElement({
           "tag": "img",
           "src": "https://s3.ap-southeast-1.amazonaws.com/console.76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg", 
-          "style": "width:100%;margin-bottom:60px;",
+          "style": "width:100%;margin:0px 0px 60px 0px!important;border-radius:12px;",
           "parent": document.getElementById("tag")
         });
 

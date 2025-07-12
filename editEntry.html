@@ -33,20 +33,21 @@
       <div class="pure-g content">
         <form class="pure-form pure-u-1" action="javascript:editentry();">
           <div class="pure-g" style="padding: 0px 22px!important;">
-            <h1 class="pure-u-2-3" style="margin:120px 0px 30px 0px;">Edit entry</h1>
-            
+            <h1 class="pure-u-2-3" style="margin:120px 0px 30px 0px;">Edit entry</h1> 
+
             <h1 id="deleteEntry" class="pure-u-1-3" style="margin:120px 0px 30px 0px;cursor:pointer;text-align:right;">
-              <a class="link" onclick="javascript:deleteEntry();">
+              <a class="link" onclick="javascript:deleteEntry();" style="font-size:26px;">
                 <i class="fas fa-trash-alt"></i> 
               </a>
             </h1>
-            <h1 id="deleteEntry-spin" class="pure-u-1-3" style="margin:50px 0px 30px 0px;cursor:pointer;text-align:right;display:none;;">
-              <a class="link" style="cursor:default;"> 
+            
+            <h1 id="deleteEntry-spin" class="pure-u-1-3" style="margin:120px 0px 30px 0px;cursor:default;text-align:right;display:none;">
+              <a class="link" style="font-size:26px;"> 
                 <i class="fas fa-spinner fa-spin"></i>
               </a>
             </h1>
 
-            <img id="editentry-preview" style="width:100%;display:none;margin-top:10px;"/>
+            <img id="editentry-preview" style="width:100%;display:none;margin:10px 0px 0px 0px!important;border-radius:12px;"/>
             <input id="editentry-photo" type="file" accept="image/jpeg, image/png, image/heic" style="display:none;">
             <label for="editentry-photo" class="pure-button pure-u-1" style="padding-top:10px!important;margin-bottom:20px!important;">Attach Photo</label>
 
