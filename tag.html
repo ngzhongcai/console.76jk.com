@@ -70,7 +70,7 @@
 
       getTag(tagId, function(err, res) {
         if(err) { alert(err); return; } 
-        if(!res) { location.href= "https://76jk.com/statics/" + tagId + ".html"; return; }
+        if(!res) { location.href= "/statics/" + tagId + ".html"; return; }
         renderTag(res, function(err, res) {
           if(err) { alert(err); return; }
           console.log("OK");
@@ -96,7 +96,7 @@
         "tag": "h1",
         "id": "h1Name",
         "class": "pure-u-2-3",
-        "style": "margin:75px 0px 30px 0px!important;font-size:26px;",
+        "style": "margin:75px 0px 30px 0px!important;font-size:26px;font-weight:300!important;",
         "innerHTML": tag.name_ + 
           "<a data-admin='true' class='link' style='font-size:26px;cursor:pointer;margin-left:15px;' " + 
             "href='\/editname.html?tagId=" + tag.tagId + "'>" + 
@@ -154,19 +154,19 @@
           "tag": "p",
           "class": "pure-u-1",
           "innerHTML": moment(entry.firstCreated).local().format("D MMM YYYY, HH:mm"),
-          "style": "font-size:16px;margin-bottom:5px;font-style:italic",
+          "style": "font-size:16px;margin-bottom:5px;font-style:italic;",
           "parent": document.getElementById("tag")
         });
         
         renderElement({
           "tag": "p",
           "class": "pure-u-1",
+          "style": "font-size:26px;margin-bottom:5px;font-weight:100;",
           "innerHTML": entry.description + 
-          "<a data-admin='true' class='link' style='cursor:pointer;float:right;' " +
+          "<a data-admin='true' class='link' style='cursor:pointer;float:right;font-size:26px;margin:0px!important;' " +
             "href=\"\/editentry.html?entryId=" + entry.entryId + "&tagId=" + tag.tagId + "\";'>" + 
             "<i class='fa-solid fa-pen-to-square'></i>" + 
           "</a>",
-          "style": "font-size:26px;margin-bottom:5px;",
           "parent": document.getElementById("tag")
         });
         

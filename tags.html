@@ -108,7 +108,7 @@
         "tag": "h1",
         "class": "pure-u-1",
         "innerHTML": "Collection",
-        "style": "font-size:26px;margin-top:75px;margin-bottom:20px;",
+        "style": "font-size:26px;margin:75px 0px 20px 0px!important;font-weight:300;",
         "parent": document.getElementById("tags")
       });
 
@@ -129,7 +129,7 @@
           renderElement({
             "tag": "img",
             "src": "https://s3.ap-southeast-1.amazonaws.com/console.76jk.com/statics/images/" + tag.tagId + "/" + tag.entries[tag.entries.length- 1].entryId + ".jpeg", 
-            "style": "width:100%;margin-bottom:5px;",
+            "style": "width:100%;margin:0px 0px 5px 0px!important;",
             "parent": document.getElementById("div-" + tag.tagId)
           });
         }
@@ -139,8 +139,8 @@
           "class": "pure-u-1",
           "innerHTML": tag.name_== " " ? tag.tagId : tag.name_,
           "style": tag.name_== " " ? 
-            "font-size:26px;margin-bottom:5px;font-style:italic;" :
-            "font-size:26px;margin-bottom:5px;text-align:center;",
+            "font-size:26px;font-weight:100;font-style:italic;margin:0px 0px 5px 0px!important;" :
+            "font-size:26px;font-weight:100;text-align:center;margin:0px 0px 5px 0px!important;",
           "parent": document.getElementById("div-" + tag.tagId)
         });
 
