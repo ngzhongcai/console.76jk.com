@@ -47,17 +47,17 @@
               </a>
             </h1>
 
-            <img id="editentry-preview" style="width:100%;display:none;margin:10px 0px 0px 0px!important;border-radius:12px;"/>
+            <img id="editentry-preview" style="width:100%;display:none;margin:10px 0px 10px 0px!important;border-radius:12px;"/>
             <input id="editentry-photo" type="file" accept="image/jpeg, image/png, image/heic" style="display:none;">
-            <label for="editentry-photo" class="pure-button pure-u-1" style="padding-top:10px!important;margin-bottom:20px!important;">Attach Photo</label>
+            <label for="editentry-photo" class="pure-button pure-u-1" style="margin:0px 0px 20px 0px!important;">Attach Photo</label>
 
-            <p class="pure-u-1">Time, <em id="time"></em></p>
-            <input id="editentry-time" type="text" class="pure-input pure-u-1" style="margin-bottom:20px!important;">
+            <p class="pure-u-1" style="margin:0px 0px 0px 0px!important;">Time, <em id="time"></em></p>
+            <input id="editentry-time" type="text" class="pure-input pure-u-1" style="margin:0px 0px 20px 0px!important;">
 
-            <p class="pure-u-1">Description</p>
-            <textarea id="editentry-description" class="pure-input pure-u-1" rows="6" style="margin-bottom:20px!important;border:1px #CCCCCC solid;resize:vertical;"></textarea>
+            <p class="pure-u-1" style="margin:0px 0px 0px 0px!important;">Description</p>
+            <textarea id="editentry-description" class="pure-input pure-u-1" rows="6" style="margin:0px 0px 20px 0px!important;border:1px #CCCCCC solid;resize:vertical;"></textarea>
 
-            <button id="editentry-btn" type="submit" class="pure-button pure-u-1">Submit</button>
+            <button id="editentry-btn" type="submit" class="pure-button pure-u-1" style="margin:0px 0px 30px 0px!important;">Submit</button>
           </div>
         </form>
       </div>
@@ -128,7 +128,7 @@
       const preloadFileIntoInput= function(tag, entry) {
         console.log("https://s3.ap-southeast-1.amazonaws.com/console.76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg");
         showImagePreview("https://s3.ap-southeast-1.amazonaws.com/console.76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg", "editentry-preview");
-        fetch("https://s3.ap-southeast-1.amazonaws.com/console.76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg")
+        fetch("https://76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg")
           .then(function(response) { return response.blob(); })
           .then(function(blob) {
             var file= new File([blob], entry.entryId + ".jpeg", { type: "image/jpeg" });
