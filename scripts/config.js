@@ -1,2 +1,2 @@
-const version= "10.07.0929"; 
+const version= "12.07.2120"; 
 const endpoint= "https://api.76jk.com";
