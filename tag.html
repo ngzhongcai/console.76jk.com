@@ -64,7 +64,7 @@
   <script type="text/javascript">
     const loadScript= function() {
       const tagId= getValueFromQueryString("tagId");
-      if(!tagId) { alert("INSERT IN SCRIPT HERE"); return; }
+      if(!tagId) { alert("INSERT IN SCRIPT HERE"); attachSmartClickListenersToZoomables(); return; }
       instance.jk= getCookie("jk");
       if(!instance.jk) { console.log("TAG.HTML"); location.href= "/statics/" + tagId + ".html"; return; }
       instance.profile= jwt_decode(instance.jk); 
@@ -74,7 +74,10 @@
         if(!res) { location.href= "/statics/" + tagId + ".html"; return; }
         renderTag(res, function(err, res) {
           if(err) { alert(err); return; }
-          console.log("OK");
+          attachSmartClickListenersToZoomables(function() {
+            if(err) { alert(err); return; }
+            console.log("OK");
+          });
         });
       });
     }
@@ -173,33 +176,41 @@
 
         renderElement({
           "tag": "img",
-          "class": "pure-u-1",
+          "class": "pure-u-1 zoomable",
           "src": "https://s3.ap-southeast-1.amazonaws.com/console.76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg", 
           "style": "width:100%;margin:0px 0px 60px 0px!important;border-radius:12px;cursor:pointer;touch-action:manipulation;user-select:none;",
           "id": "img-" + entry.entryId,
           "parent": document.getElementById("tag")
-        }); 
-        
+        });
+
+        if(i=== 0) { callback(); }
+      }
+    }  
+    
+    const attachSmartClickListenersToZoomables= function(callback) {
+      document.querySelectorAll("img.zoomable").forEach(function(imgEl) {
+        const entryId= imgEl.id.replace("img-", "");
         let startY= 0;
         let hasMoved= false;
         let touchHandled= false;
         let mouseHandled= false;
-        const imgEl= document.getElementById("img-" + entry.entryId);
         
         // TOUCH EVENTS
-        imgEl.addEventListener("touchstart", function (e) {
+        imgEl.addEventListener("touchstart", function(e) {
           startY= e.touches[0].clientY;
           hasMoved= false;
           touchHandled= false;
         });
+        
         imgEl.addEventListener("touchmove", function(e) {
-          if(Math.abs(e.touches[0].clientY - startY) > 10) { hasMoved= true; } 
+          if(Math.abs(e.touches[0].clientY - startY) > 10) { hasMoved = true; }
         });
+        
         imgEl.addEventListener("touchend", function(e) {
           if(!hasMoved) {
             e.preventDefault();
             touchHandled= true;
-            handleClick(entry.entryId);
+            handleClick(entryId);
           }
         });
         
@@ -209,29 +220,34 @@
           hasMoved= false;
           mouseHandled= false;
         });
+        
         imgEl.addEventListener("mousemove", function(e) {
-          if(Math.abs(e.clientY - startY) > 10) { hasMoved = true; }
+          if(Math.abs(e.clientY - startY) > 10) { hasMoved= true; }
         });
+        
         imgEl.addEventListener("mouseup", function(e) {
           if(!hasMoved) {
             mouseHandled= true;
-            handleClick(entry.entryId);
+            handleClick(entryId);
           }
         });
-
-        // CLICK (prevent double fire from both touch and mouse)
-        imgEl.addEventListener("click", function (e) {
+        
+        // CLICK (prevent double trigger)
+        imgEl.addEventListener("click", function(e) {
           if(touchHandled || mouseHandled) {
             e.preventDefault();
             e.stopPropagation();
             return;
           }
-          handleClick(entry.entryId);
+          handleClick(entryId);
         });
-
-        if(i=== 0) { callback(); }
+      });
+      
+      if(typeof callback=== "function") {
+        callback(null);
       }
-    }  
+
+    }
 
     const handleClick= function(entryId) {
       alert(entryId);
