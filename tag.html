@@ -64,9 +64,9 @@
   <script type="text/javascript">
     const loadScript= function() {
       const tagId= getValueFromQueryString("tagId");
+      if(!tagId) { alert("INSERT IN SCRIPT HERE"); return; }
       instance.jk= getCookie("jk");
       if(!instance.jk) { console.log("TAG.HTML"); location.href= "/statics/" + tagId + ".html"; return; }
-      if(!tagId) { return; }
       instance.profile= jwt_decode(instance.jk); 
 
       getTag(tagId, function(err, res) {
@@ -218,6 +218,7 @@
             handleClick(entry.entryId);
           }
         });
+
         // CLICK (prevent double fire from both touch and mouse)
         imgEl.addEventListener("click", function (e) {
           if(touchHandled || mouseHandled) {
