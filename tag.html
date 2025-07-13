@@ -16,8 +16,8 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/async/3.1.0/async.min.js"></script>   
   <script type="text/javascript" src="https://unpkg.com/@panzoom/panzoom@4.6.0/dist/panzoom.min.js"></script>
-  <script data-admin="true" type="text/javascript" src="https://76jk.com/scripts/config.js"></script>
-  <script data-admin="true" type="text/javascript" src="https://76jk.com/scripts/base.js"></script>
+  <script type="text/javascript" src="https://76jk.com/scripts/config.js"></script>
+  <script type="text/javascript" src="https://76jk.com/scripts/base.js"></script>
 </head>
 
 <body>
@@ -169,53 +169,71 @@
             "<i class='fa-solid fa-pen-to-square'></i>" + 
           "</a>",
           "parent": document.getElementById("tag")
-        });
-
-        renderElement({
-          "tag": "div", 
-          "class": "pure-u-1 pure-g",
-          "style": "overflow:hidden;margin:0px 0px 0px 0px!important;",
-          "id": "div-" + entry.entryId,
-          "parent": document.getElementById("tag")
         }); 
 
         renderElement({
           "tag": "img",
+          "class": "pure-u-1",
           "src": "https://s3.ap-southeast-1.amazonaws.com/console.76jk.com/statics/images/" + tag.tagId + "/" + entry.entryId + ".jpeg", 
-          "style": "width:100%;margin:0px 0px 60px 0px!important;border-radius:12px;touch-action:none;",
+          "style": "width:100%;margin:0px 0px 60px 0px!important;border-radius:12px;cursor:pointer;touch-action:manipulation;user-select:none;",
           "id": "img-" + entry.entryId,
-          "parent": document.getElementById("div-" + entry.entryId)
+          "parent": document.getElementById("tag")
+        }); 
+        
+        let startY= 0;
+        let hasMoved= false;
+        let touchHandled= false;
+        let mouseHandled= false;
+        const imgEl= document.getElementById("img-" + entry.entryId);
+        
+        // TOUCH EVENTS
+        imgEl.addEventListener("touchstart", function (e) {
+          startY= e.touches[0].clientY;
+          hasMoved= false;
+          touchHandled= false;
+        });
+        imgEl.addEventListener("touchmove", function(e) {
+          if(Math.abs(e.touches[0].clientY - startY) > 10) { hasMoved= true; } 
+        });
+        imgEl.addEventListener("touchend", function(e) {
+          if(!hasMoved) {
+            e.preventDefault();
+            touchHandled= true;
+            handleClick(entry.entryId);
+          }
         });
         
-        var img= document.getElementById("img-" + entry.entryId);
-        const pz = Panzoom(img, {
-  maxZoom: 5,
-  minZoom: 1,
-  bounds: true,
-  boundsPadding: 0.1,
-  zoomDoubleClickSpeed: 1
-});
-
-// ✅ Allow vertical scroll gestures to pass through
-img.style.touchAction = 'pan-y';
-img.style.userSelect = 'none';
-img.draggable = false;
-
-// ✅ Only allow panning if zoomed in
-img.addEventListener('touchstart', function (e) {
-  const transform = img.style.transform;
-  const match = transform.match(/scale\(([^)]+)\)/);
-  const scale = match ? parseFloat(match[1]) : 1;
-
-  if (scale <= 1.01) {
-    pz.pause();  // disable pan so page scrolls
-  } else {
-    pz.resume(); // enable pan if zoomed in
-  }
-}, { passive: true });
+        // MOUSE EVENTS
+        imgEl.addEventListener("mousedown", function(e) {
+          startY= e.clientY;
+          hasMoved= false;
+          mouseHandled= false;
+        });
+        imgEl.addEventListener("mousemove", function(e) {
+          if(Math.abs(e.clientY - startY) > 10) { hasMoved = true; }
+        });
+        imgEl.addEventListener("mouseup", function(e) {
+          if(!hasMoved) {
+            mouseHandled= true;
+            handleClick(entry.entryId);
+          }
+        });
+        // CLICK (prevent double fire from both touch and mouse)
+        imgEl.addEventListener("click", function (e) {
+          if(touchHandled || mouseHandled) {
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+          }
+          handleClick(entry.entryId);
+        });
 
         if(i=== 0) { callback(); }
       }
+    }  
+
+    const handleClick= function(entryId) {
+      alert(entryId);
     }
 
   </script>

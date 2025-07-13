@@ -211,3 +211,9 @@ textarea.pure-input {
   text-align: center;
   color: #6E6E73;
 }
+
+/*
+.touchable {
+  touch-action: manipulation;
+}
+  */
