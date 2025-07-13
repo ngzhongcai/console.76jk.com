@@ -64,7 +64,7 @@
   <script type="text/javascript">
     const loadScript= function() {
       const tagId= getValueFromQueryString("tagId");
-      if(!tagId) { alert("INSERT IN SCRIPT HERE"); attachSmartClickListenersToZoomables(); return; }
+      if(!tagId) { attachSmartClickListenersToZoomables(); return; }
       instance.jk= getCookie("jk");
       if(!instance.jk) { console.log("TAG.HTML"); location.href= "/statics/" + tagId + ".html"; return; }
       instance.profile= jwt_decode(instance.jk); 
