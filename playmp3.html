@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Digitively">
+  <meta name="description" content="76JK">
+  <title>76JK</title>
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.7.2/css/all.css">
+  <link rel="stylesheet" href="https://76jk.com/styles/styles.css">
+  <link rel="icon" type="image/x-icon" href="https://76jk.com/images/favicon.ico">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jwt-decode@2.2.0/build/jwt-decode.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/async/3.1.0/async.min.js"></script>
+  <script type="text/javascript" src="https://76jk.com/scripts/config.js"></script>
+  <script type="text/javascript" src="https://76jk.com/scripts/base.js"></script>
+</head>
+
+<body>
+  <div class="header">
+    <div class="menu pure-menu pure-menu-horizontal pure-menu-fixed">
+      <ul class="pure-menu-list" style="float:left;">
+        <li class="pure-menu-item"><a class="pure-menu-link" href="/index.html"><span style="color:#6B7D5F;">BONSAI</span> 76JK</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <div class="pure-g content"> 
+      <form class="pure-form pure-u-1" action="javascript:playmp3();">
+        <div class="pure-g">
+          <h1 class="pure-u-1" style="margin:120px 22px 30px 22px!important;">Play MP3</h1>
+          <p id="error" style="color:#FF0000;">&nbsp;</p>
+          <p class="pure-u-1" style="margin:0px 22px 0px 22px!important;">Clip</p>
+          <input id="playmp3-clip" type="text" class="pure-input pure-u-1" style="margin:0px 22px 20px 22px!important;">
+          <button id="playmp3-btn" type="submit" class="pure-button pure-u-1" style="margin:0px 22px 0px 22px!important;">Play</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="menu pure-menu pure-menu-horizontal">
+      <ul class="pure-menu-list" style="float:left;">
+        <li class="pure-menu-item"><a id="version" class="pure-menu-link"></a></li>
+      </ul>
+      <ul class="pure-menu-list" style="float:right;">
+        <li class="pure-menu-item"><a href="mailto:hello@76jk.com" class="pure-menu-link">hello@76jk.com</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    const loadScript= function() {
+      instance.jk= getCookie("jk"); 
+      if(!instance.jk) { location.href= "/index.html"; return; }
+    }
+
+    const playmp3= function(callback) {  
+      const action= "playmp3";
+      const url= instance.endpoint + "/" + action.toLowerCase();
+      const variables= ["jk", "clip"];
+      const required= ["jk", "clip"];
+      const values= {};
+      const type= "application/x-www-form-urlencoded";
+      post(type, url, action, variables, required, values, function(err, res) {
+        if(err) { alert(err); return; } 
+        console.log(res);
+      });
+    }
+  </script>
+
+</body>
+</html>
