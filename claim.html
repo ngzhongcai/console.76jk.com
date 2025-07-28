@@ -77,8 +77,7 @@
     }
     
     const claim= function(callback) {
-      const tagId= document.getElementById("tagId").innerHTML;
-
+      const tagId= document.getElementById("tagId").innerHTML.replace(/.*tagId=([a-zA-Z0-9-]+)(?:&.*)?$/, "$1");
       const action= "claim";
       const url= instance.endpoint + "/" + action.toLowerCase();
       const variables= ["jk", "tagId", "name"];
